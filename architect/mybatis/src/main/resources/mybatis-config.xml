@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--引入properties配置文件-->
+	<properties resource="db.properties" />
+
+    <!--进行MyBatis一些全局属性的配置-->
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+        <!--开启二级缓存-->
+        <!--<setting name="cacheEnabled" value="true"/>-->
+	</settings>
+
+    <!--别名配置-->
+    <typeAliases>
+        <typeAlias type="william.mybatis.quickstart.entity.UserEntity" alias="UserEntity"/>
+    </typeAliases>
+
+    <!--配置environment环境 -->
+    <environments default="development">
+        <!-- 环境配置1，每个SqlSessionFactory对应一个环境 -->
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <dataSource type="UNPOOLED">
+                <property name="driver" value="${jdbc_driver}" />
+                <property name="url" value="${jdbc_url}" />
+                <property name="username" value="${jdbc_username}" />
+                <property name="password" value="${jdbc_password}" />
+            </dataSource>
+        </environment>
+
+    </environments>
+
+	<!-- 映射文件，mapper的配置文件 -->
+ 	<mappers>
+		<!--直接映射到相应的mapper文件-->
+		<mapper resource="mapper/UserMapper.xml" />
+	</mappers>
+
+	<!--<mappers>
+        &lt;!&ndash;加载Mapper接口，要求映射文件与接口在同一个路径下,且名称相同&ndash;&gt;
+		<mapper class="william.mybatis.quickstart.mapper.UserMapper"/>
+	</mappers>-->
+
+
+</configuration>  

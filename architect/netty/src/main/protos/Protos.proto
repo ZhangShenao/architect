@@ -1,0 +1,39 @@
+syntax = "proto2"; //使用Proto2版本
+
+package william.netty.protobuf; //指定包名
+option optimize_for = SPEED;
+option java_package = "william.netty.protobuf"; //指定java包名
+option java_outer_classname = "ProtoMessages"; //指定生成的外部类类名
+
+//外层消息类型
+message Protos {
+    //消息类型枚举
+    enum MessageType {
+        PERSON = 1;
+        STUDENT = 2;
+    }
+
+    required MessageType message_type = 1;
+
+    //设置为下面几种类型中的其中一种
+    oneof message_body {
+        Person person = 2;
+        Student student = 3;
+    }
+
+}
+
+message Person {
+    required string name = 1;
+    optional int32 age = 2;
+    optional string address = 3;
+}
+
+message Student {
+    required string name = 1;
+    optional int32 age = 2;
+    optional string school = 3;
+}
+
+
+

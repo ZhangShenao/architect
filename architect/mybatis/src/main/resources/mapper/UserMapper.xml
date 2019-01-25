@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="william.mybatis.quickstart.mapper.UserMapper">
+    <!--开启二级缓存配置-->
+    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>
+
+    <!--结果集映射-->
+	<resultMap id="UserEntityResultMap" type="UserEntity">
+		<id column="id" property="id" />
+		<result column="user_name" property="userName" />
+		<result column="real_name" property="realName" />
+		<result column="sex" property="sex" />
+		<result column="mobile" property="mobile" />
+		<result column="email" property="email" />
+		<result column="note" property="note" />
+	</resultMap>
+
+    <!--resultMap和resultType
+        resultType可自动映射，如果配置了mapUnderscoreToCamelCase，可以将数据库的下划线列名映射为JavaBean的驼峰属性名
+        resultMap需要自定义映射规则，推荐使用这种方式。
+    -->
+
+    <!--SQL 片段-->
+    <sql id="BaseColumnList">
+        id, user_name, real_name, sex, mobile, email, note, position_id
+    </sql>
+
+	<!--可以通过flushCache="true"禁用一级缓存-->
+	<select id="selectById" resultMap="UserEntityResultMap" parameterType="long" resultType="UserEntity" >
+		select
+        <!--引用SQL片段-->
+        <include refid="BaseColumnList" />
+		from t_user
+		where id = #{id}
+	</select>
+
+    <insert id="insert" parameterType="UserEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user(user_name,real_name,sex,mobile,email,note,position_id)
+        values(#{userName},#{realName},#{sex},#{mobile},#{email},#{note},#{positionId})
+    </insert>
+
+    <update id="update" parameterType="UserEntity" useGeneratedKeys="true" keyProperty="id">
+        update t_user set user_name = #{userName},real_name = #{realName},sex = #{sex},
+        mobile = #{mobile}, email = #{email} , note = #{note}, position_id = #{positionId}
+        where id = #{id}
+    </update>
+
+</mapper>
