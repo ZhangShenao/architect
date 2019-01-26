@@ -28,6 +28,7 @@ public class Server {
             ServerBootstrap serverBootstrap = new ServerBootstrap()
                     .group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
+                    //handler是交给bossGroup处理的,childHandler是交给workerGroup处理的
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
