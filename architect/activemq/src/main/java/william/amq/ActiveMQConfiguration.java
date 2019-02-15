@@ -1,10 +1,12 @@
-package william.amq.spring;
+package william.amq;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.connection.CachingConnectionFactory;
@@ -18,9 +20,11 @@ import javax.jms.ConnectionFactory;
 /**
  * @Auther: ZhangShenao
  * @Date: 2019/1/8 18:20
- * @Description:
+ * @Description:ActiveMQ核心配置类
  */
 @Configuration
+@EnableJms
+@ComponentScan
 public class ActiveMQConfiguration {
     @ConditionalOnClass(ActiveMQConnectionFactory.class)
     @Bean
@@ -48,7 +52,7 @@ public class ActiveMQConfiguration {
         return converter;
     }
 
-    @Bean
+    @Bean(Constants.JMS_TOPIC_TEMPLATE)
     public JmsTemplate jmsTopicTemplate() {
         JmsTemplate jmsTemplate = new JmsTemplate();
         jmsTemplate.setConnectionFactory(connectionFactory());
@@ -57,7 +61,7 @@ public class ActiveMQConfiguration {
         return jmsTemplate;
     }
 
-    @Bean
+    @Bean(Constants.JMS_QUEUE_TEMPLATE)
     public JmsTemplate jmsQueueTemplate() {
         JmsTemplate jmsTemplate = new JmsTemplate();
         jmsTemplate.setConnectionFactory(connectionFactory());
@@ -67,7 +71,7 @@ public class ActiveMQConfiguration {
     }
 
     @ConditionalOnClass(ActiveMQConnectionFactory.class)
-    @Bean
+    @Bean(Constants.QUEUE_LISTENER_CONTAINER_FACTORY)
     public JmsListenerContainerFactory<?> queueListenerContainerFactory(DefaultJmsListenerContainerFactoryConfigurer configurer) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         configurer.configure(factory, connectionFactory());
@@ -77,7 +81,7 @@ public class ActiveMQConfiguration {
     }
 
     @ConditionalOnClass(ActiveMQConnectionFactory.class)
-    @Bean
+    @Bean(Constants.TOPIC_LISTENER_CONTAINER_FACTORY)
     public JmsListenerContainerFactory<?> topicListenerContainerFactory(DefaultJmsListenerContainerFactoryConfigurer configurer) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         configurer.configure(factory, connectionFactory());

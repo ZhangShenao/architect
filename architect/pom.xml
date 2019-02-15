@@ -17,6 +17,7 @@
         <module>mybatis</module>
         <module>activemq</module>
         <module>netty</module>
+        <module>kafka</module>
     </modules>
     <packaging>pom</packaging>
 
