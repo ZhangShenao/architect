@@ -14,7 +14,7 @@ import william.netty.constant.Constants;
  */
 public class Server {
     public static void main(String[] args) {
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
+        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
         try {

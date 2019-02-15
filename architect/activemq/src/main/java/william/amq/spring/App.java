@@ -6,6 +6,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.jms.core.JmsTemplate;
 import william.amq.spring.constant.MQConstants;
 
+import javax.jms.Session;
+
 /**
  * @Auther: ZhangShenao
  * @Date: 2019/1/10 10:50
@@ -19,6 +21,7 @@ public class App {
         queueJmsTemplate.convertAndSend(MQConstants.SAMPLE_QUEUE_NAME,"payload");
         JmsTemplate topicJmsTemplate = (JmsTemplate) applicationContext.getBean("jmsTopicTemplate");
         topicJmsTemplate.convertAndSend(MQConstants.SAMPLE_TOPIC_NAME,"payload");
+        topicJmsTemplate.send(MQConstants.SAMPLE_TOPIC_NAME,session -> session.createTextMessage("payload"));
         System.err.println("Message Send Success");
     }
 }
