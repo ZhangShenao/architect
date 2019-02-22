@@ -16,6 +16,7 @@ import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
 import william.amq.common.Constants;
 import javax.jms.ConnectionFactory;
+import javax.jms.Session;
 
 /**
  * @Auther: ZhangShenao

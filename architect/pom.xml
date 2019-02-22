@@ -18,6 +18,7 @@
         <module>activemq</module>
         <module>netty</module>
         <module>kafka</module>
+        <module>quartz</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -23,6 +23,6 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
                 .addLast("lengthFieldPrepender", new LengthFieldPrepender(4))
                 .addLast("stringDecoder", new StringDecoder(CharsetUtil.UTF_8))
                 .addLast("stringEncoder", new StringEncoder(CharsetUtil.UTF_8))
-                .addLast("serverHandler",new ServerHandler());
+                .addLast("serverHandler", ServerHandler.getInstance());
     }
 }

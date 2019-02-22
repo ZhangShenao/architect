@@ -7,7 +7,7 @@ package william.rmq.common;
  */
 public interface RocketMQConstants {
     String TOPIC_NAME = "Test-Topic";
-    String NAMESRV_ADDR = "Linux01:9876;Linux02:9876";
+    String NAMESRV_ADDR = "127.0.0.1:9876";
 
     String PRODUCER_GROUP = "Test-Producer-Group";
     String CONSUMER_GROUP = "Test-Consumer-Group";

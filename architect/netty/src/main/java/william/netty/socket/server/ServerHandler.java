@@ -1,5 +1,6 @@
 package william.netty.socket.server;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -8,7 +9,13 @@ import io.netty.channel.SimpleChannelInboundHandler;
  * @Date: 2019/1/16 18:42
  * @Description:
  */
-public class ServerHandler extends SimpleChannelInboundHandler<String>{
+@ChannelHandler.Sharable
+public class ServerHandler extends SimpleChannelInboundHandler<String> {
+    private static final ServerHandler instance = new ServerHandler();
+
+    public static ServerHandler getInstance() {
+        return instance;
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, String msg) {
@@ -23,4 +30,5 @@ public class ServerHandler extends SimpleChannelInboundHandler<String>{
         cause.printStackTrace();
         ctx.close();
     }
+
 }
