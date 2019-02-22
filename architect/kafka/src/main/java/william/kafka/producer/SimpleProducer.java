@@ -27,11 +27,11 @@ public class SimpleProducer {
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class); //设置key和value的序列化类型,因为kafka中数据都是字节数组形式。必须指定
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         //Optional
-        props.put(ProducerConfig.ACKS_CONFIG, "-1");
-        props.put(ProducerConfig.RETRIES_CONFIG, 3);
-        props.put(ProducerConfig.BATCH_SIZE_CONFIG, 323840);
-        props.put(ProducerConfig.LINGER_MS_CONFIG, 10);
-        props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
+        props.put(ProducerConfig.ACKS_CONFIG, "-1");    //指定Broker端消息持久化机制
+        props.put(ProducerConfig.RETRIES_CONFIG, 3);    //对于可重试异常,指定消息重试次数
+        props.put(ProducerConfig.BATCH_SIZE_CONFIG, 323840);    //消息发送Batch的大小
+        props.put(ProducerConfig.LINGER_MS_CONFIG, 10);         //消息发送的延时时间
+        props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);   //指定Producer端用于缓存消息的缓冲区大小
         props.put(ProducerConfig.MAX_BLOCK_MS_CONFIG, 3000);
 
         //Step2:使用构造好的Properties对象创建KafkaProducer实例
