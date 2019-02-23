@@ -1,9 +1,8 @@
-package william.rmq.quickstart;
+package william.rmq.producer;
 
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
-import org.apache.rocketmq.client.producer.SendStatus;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
 import william.rmq.common.RocketMQConstants;
@@ -14,6 +13,8 @@ import william.rmq.common.RocketMQConstants;
  * @Description:异步发送的消息生产者
  */
 public class AsyncProducer {
+    private static final int MESSAGE_NUM = 5;
+
     public static void main(String[] args) {
         //创建DefaultMQProducer
         DefaultMQProducer producer = new DefaultMQProducer(RocketMQConstants.PRODUCER_GROUP);
@@ -32,7 +33,7 @@ public class AsyncProducer {
             //启动Producer
             producer.start();
 
-            for (int i = 1; i <= 8; i++) {
+            for (int i = 1; i <= MESSAGE_NUM; i++) {
                 String tag = (i % 2 == 0) ? "TagA" : "TagB";
                 String keys = "keys" + i;
                 String payload = "Test-Message-" + i;
@@ -54,7 +55,7 @@ public class AsyncProducer {
 
                     @Override
                     public void onException(Throwable e) {
-                        System.err.println("Send Message Error : " + e.getMessage());
+                        System.err.println("Send Message Error : " + e);
                     }
                 });
             }

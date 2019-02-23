@@ -1,19 +1,22 @@
-package william.rmq.quickstart;
+package william.rmq.producer;
 
-import org.apache.rocketmq.client.producer.*;
+import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.client.producer.SendStatus;
 import org.apache.rocketmq.common.message.Message;
-import org.apache.rocketmq.common.message.MessageQueue;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
 import william.rmq.common.RocketMQConstants;
-
-import java.util.List;
 
 /**
  * @Auther: ZhangShenao
  * @Date: 2018/11/4 09:53
- * @Description:同步发送的消息生产者
+ * @Description:延迟消息的发送者
  */
-public class SyncProducer {
+public class DelayProducer {
+    private static final int MESSAGE_NUM = 5;
+
+    private static final int DELAY_TIME_LEVEL = 3;
+
     public static void main(String[] args) {
         //创建DefaultMQProducer
         DefaultMQProducer producer = new DefaultMQProducer(RocketMQConstants.PRODUCER_GROUP);
@@ -32,7 +35,7 @@ public class SyncProducer {
             //启动Producer
             producer.start();
 
-            for (int i = 1; i <= 5; i++) {
+            for (int i = 1; i <= MESSAGE_NUM; i++) {
                 String tag = (i % 2 == 0) ? "TagA" : "TagB";
                 String keys = "keys" + i;
                 String payload = "Test-Message-" + i;
@@ -44,21 +47,16 @@ public class SyncProducer {
                  * body:消息体内容,定义为字节数组形式
                  */
                 Message message = new Message(RocketMQConstants.TOPIC_NAME, tag, keys, payload.getBytes(RemotingHelper.DEFAULT_CHARSET));
-            /*if (i % 2 == 0){
-                //设置消息的延迟级别
-                message.setDelayTimeLevel(3);
-            }*/
+
+                /**
+                 * 设置消息的延迟级别。RocketMQ的延迟策略是:将消息发送到Broker上后,由Broker处理延迟,在延迟时间后才会被Consumer消费
+                 * RocketMQ仅支持固定精度的定时消息,这是出于减少Broker性能开销的考虑。
+                 * 具体延迟精度的配置在MessageStoreConfig.messageDelayLevel中
+                 */
+                message.setDelayTimeLevel(i);
 
                 //同步发送消息,获取Broker的ACK发送结果
                 SendResult sendResult = producer.send(message);
-                //将消息发往指定的Message Queue
-            /*SendResult sendResult  = producer.send(message, new MessageQueueSelector() {
-                @Override
-                public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
-                    Integer queueId = (Integer)arg;
-                    return mqs.get(queueId);
-                }
-            },2);*/
                 System.err.println("Send Message Result: " + sendResult);
 
 
@@ -66,21 +64,8 @@ public class SyncProducer {
                 SendStatus sendStatus = sendResult.getSendStatus();
                 if (sendStatus == null || SendStatus.SEND_OK != sendStatus) {
                     System.err.println("Message SendStatus No OK!! messageId: " + sendResult.getMsgId());
-                    //重试
+                    //TODO 重试
                 }
-
-                //异步发送消息，实现Callback
-            /*producer.send(message, new SendCallback() {
-                @Override
-                public void onSuccess(SendResult sendResult) {
-                    System.err.println("Send Message Success!! messageId: " + sendResult.getMsgId() + ", status: " + sendResult.getSendStatus());
-                }
-
-                @Override
-                public void onException(Throwable e) {
-                    System.err.println("Send Message Error : " + e.getMessage());
-                }
-            });*/
             }
 
         } catch (Exception e) {
