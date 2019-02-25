@@ -6,5 +6,5 @@ package william.kafka.constant;
  * @Description:
  */
 public interface KafkaConstants {
-    String TOPIC_NAME = "test";
+    String TOPIC_NAME = "learn";
 }
