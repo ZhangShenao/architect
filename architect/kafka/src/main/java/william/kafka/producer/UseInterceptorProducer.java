@@ -32,7 +32,7 @@ public class UseInterceptorProducer {
         KafkaProducer<String, String> producer = new KafkaProducer<>(props);
 
         try {
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 20; i++) {
                 String key = "key-" + i;
                 String value = "value" + i;
                 ProducerRecord<String, String> message = new ProducerRecord<>(KafkaConstants.TOPIC_NAME, key, value);
