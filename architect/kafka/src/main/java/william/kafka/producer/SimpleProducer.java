@@ -38,7 +38,7 @@ public class SimpleProducer {
         KafkaProducer<String, String> producer = new KafkaProducer<>(props);
 
         try {
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 10; i++) {
                 String key = "key-" + i;
                 String value = "value" + i;
                 //Step3:构造待发送的消息对象ProducerRecord,指定要发送到的Topic、Partition、key和value

@@ -7,4 +7,6 @@ package william.kafka.constant;
  */
 public interface KafkaConstants {
     String TOPIC_NAME = "learn";
+
+    String CONSUMER_GROUP = "learn-consumer-group";
 }
