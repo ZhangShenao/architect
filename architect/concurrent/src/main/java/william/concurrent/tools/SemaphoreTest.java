@@ -14,7 +14,7 @@ public class SemaphoreTest {
 
     private static ExecutorService pool = Executors.newFixedThreadPool(THREAD_NUM);
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         for (int i = 0;i < THREAD_NUM;i++){
             pool.submit(() -> {
                 try {
