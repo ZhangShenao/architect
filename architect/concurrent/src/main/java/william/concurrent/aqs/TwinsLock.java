@@ -9,7 +9,7 @@ import java.util.concurrent.locks.Lock;
 /**
  * @Auther: ZhangShenao
  * @Date: 2018/11/22 18:39
- * @Description:
+ * @Description:自定义同步组件,在同一时刻只允许最多2个线程访问
  */
 public class TwinsLock implements Lock{
     private final Sync sync = new Sync(2);
