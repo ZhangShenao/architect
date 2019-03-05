@@ -6,8 +6,12 @@ package william.zookeeper.constant;
  * @Description:
  */
 public interface ZookeeperConstant {
-    int CONNECTION_TINEOUT = 5000;
+    //会话心跳超时时间
+    int SESSION_TIMEOUT_MILLIS = 3000;
 
-    //    String ZOOKEEPER_URL = "Linux01:2181,Linux02:2181,Linux03:2181";
+    //建立连接的超时时间
+    int CONNECTION_TIMEOUT_MILLIS = 5000;
+
+    //String ZOOKEEPER_URL = "Linux01:2181,Linux02:2181,Linux03:2181";
     String ZOOKEEPER_URL = "127.0.0.1:2181";
 }

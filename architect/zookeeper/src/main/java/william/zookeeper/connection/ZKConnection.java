@@ -15,7 +15,7 @@ public class ZKConnection {
     private static CountDownLatch countDownLatch = new CountDownLatch(1);
 
     public static void main(String[] args) throws Exception {
-        ZooKeeper zooKeeper = new ZooKeeper(ZookeeperConstant.ZOOKEEPER_URL, ZookeeperConstant.CONNECTION_TINEOUT, new InitConnectionWatcher());
+        ZooKeeper zooKeeper = new ZooKeeper(ZookeeperConstant.ZOOKEEPER_URL, ZookeeperConstant.CONNECTION_TIMEOUT_MILLIS, new InitConnectionWatcher());
         countDownLatch.await();
         System.err.println("state: " + zooKeeper.getState());
         zooKeeper.create("/test-persist", "test-persist-node".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);

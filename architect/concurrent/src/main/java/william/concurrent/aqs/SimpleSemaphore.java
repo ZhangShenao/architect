@@ -26,7 +26,7 @@ public class SimpleSemaphore {
     static class Sync extends AbstractQueuedSynchronizer {
         public Sync(int permits) {
             if (permits <= 0) {
-                throw new IllegalArgumentException("permits must be positive!!");
+                throw new IllegalArgumentException("Permits must be positive!!");
             }
             setState(permits);
         }
