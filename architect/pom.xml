@@ -19,6 +19,7 @@
         <module>netty</module>
         <module>kafka</module>
         <module>quartz</module>
+        <module>redis</module>
     </modules>
     <packaging>pom</packaging>
 
