@@ -20,6 +20,7 @@
         <module>kafka</module>
         <module>quartz</module>
         <module>redis</module>
+        <module>springboot</module>
     </modules>
     <packaging>pom</packaging>
 
