@@ -1,8 +1,6 @@
 package william.quartz.jobs;
 
-import org.quartz.Job;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
+import org.quartz.*;
 
 /**
  * @Auther: ZhangShenao
@@ -11,7 +9,15 @@ import org.quartz.JobExecutionException;
  */
 public class SimpleJob implements Job{
     @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException {
+    public void execute(JobExecutionContext context) {
         System.err.println("Execute SimpleJob");
+
+        //可以根据JobExecutionContext获取Job执行时的上下文信息
+        Trigger trigger = context.getTrigger();
+        JobDetail jobDetail = context.getJobDetail();
+        JobDataMap jobDataMap = context.getMergedJobDataMap();
+        System.err.println("TriggerName: " + trigger.getKey().getName());
+        System.err.println("JobName: " + jobDetail.getKey().getName());
+        System.err.println("Data: " + jobDataMap.getString("city"));
     }
 }
