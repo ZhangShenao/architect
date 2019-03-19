@@ -21,6 +21,7 @@
         <module>quartz</module>
         <module>redis</module>
         <module>springboot</module>
+        <module>elastic-job</module>
     </modules>
     <packaging>pom</packaging>
 
