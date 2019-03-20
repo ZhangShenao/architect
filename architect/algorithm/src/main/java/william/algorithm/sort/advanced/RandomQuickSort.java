@@ -1,16 +1,14 @@
 package william.algorithm.sort.advanced;
 
 import william.algorithm.util.ArrayUtils;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @Auther: ZhangShenao
- * @Date: 2019/3/19 10:05
- * @Description:基础快速排序(单路快排):核心是对数组进行一次partition操作,找到一个索引p,使得arr[0,p-1] < arr[p] 且 arr[p+1,n-1] > arr[p]
- * 时间复杂度:O(n*logn)
- * 空间复杂度:O(1)
- * 由于每次都选取数组中的第一个元素作为基准,使得在近乎有序的情况下,每次划分成的两个数组很不均匀,时间复杂度也退化为O(n*n)
+ * @Date: 2019/3/20 08:30
+ * @Description:随机快速排序,在基本快速排序的基础上,每次随机选取一个元素作为基准值,这样极大地减小了在近乎有序的情况下时间复杂度退化成O(n*n)的概率
  */
-public class BasicQuickSort {
+public class RandomQuickSort {
     public static void quickSort(int[] arr) {
         doQuickSort(arr, 0, arr.length - 1);
     }
@@ -37,7 +35,12 @@ public class BasicQuickSort {
      * 对数组arr[l,r]范围进行partition操作,返回索引p,使得arr[l,p-1] < arr[p] 且 arr[p+1,r] > arr[p]
      */
     private static int partition(int[] arr, int l, int r) {
-        //固定选取第一个元素作为基准值
+        //随机选取一个元素作为基准值
+        int randomIndex = ThreadLocalRandom.current().nextInt(l,r + 1);
+
+        //将随机选出的元素与第一个元素进行交换
+        ArrayUtils.swapArrayElement(arr,l,randomIndex);
+
         int v = arr[l];
 
         //定义索引arr[l,j] < v 且 arr[i,r] > v,i为当前遍历到的元素
