@@ -2,7 +2,6 @@ package william.algorithm.heap;
 
 import org.springframework.util.Assert;
 import william.algorithm.util.ArrayUtils;
-
 import java.util.Arrays;
 
 /**
