@@ -1,5 +1,6 @@
 package william.algorithm.heap;
 
+import org.springframework.util.Assert;
 import william.algorithm.util.ArrayUtils;
 import java.util.Arrays;
 
@@ -22,6 +23,24 @@ public class MaxBinaryHeap {
     }
 
     /**
+     * 通过数组构建一个堆,时间复杂度O(n)
+     */
+    public MaxBinaryHeap(int[] arr) {
+        capacity = arr.length;
+        data = new int[capacity + 1];
+        size = capacity;
+        for (int i = 0; i < capacity; i++) {
+            data[i + 1] = arr[i];
+        }
+
+        //从堆的第一个非叶子节点开始,依次进行shiftDown操作,完成之后整个数组就满足了堆的性质
+        for (int i = firstNonLeafIndex(); i >= 1; i--) {
+            shiftDown(i);
+        }
+
+    }
+
+    /**
      * 向堆中插入元素
      */
     public void insert(int e) {
@@ -36,12 +55,54 @@ public class MaxBinaryHeap {
     }
 
     /**
-     * 将数组中下标为i的元素逐层上移,知道满足最大二叉堆的条件
+     * 弹出堆中最大的元素
+     */
+    public int popMax() {
+        Assert.isTrue(!isEmpty(), "堆为空!!");
+
+        //返回堆的根元素
+        int result = data[1];
+
+        //将堆中的最后一个元素放在根的位置,并进行shiftDown操作
+        data[1] = data[size--];
+
+        shiftDown(1);
+
+        return result;
+    }
+
+    /**
+     * 将数组中下标为i的元素逐层上移,直到满足最大二叉堆的条件
      */
     private void shiftUp(int i) {
         while (i > 1 && data[i] > data[parentIndex(i)]) {
             ArrayUtils.swapArrayElement(data, i, parentIndex(i));
             i = parentIndex(i);
+        }
+    }
+
+    /**
+     * 将数组中下标为i的元素逐层下移,直到满足最大堆的条件
+     */
+    private void shiftDown(int i) {
+        //只要data[i]有子节点,则执行循环
+        //如果data[i]的子节点中有比data[i]的值大的,则选取最大值作为父节点
+        while (leftChildIndex(i) <= size) {
+            int maxIndex = i;
+            //先比较左子节点
+            if (data[leftChildIndex(i)] > data[i]) {
+                maxIndex = leftChildIndex(i);
+            }
+
+            //如果存在右子节点,则比较右子节点
+            if (rightChildIndex(i) <= size && data[rightChildIndex(i)] > data[maxIndex]) {
+                maxIndex = rightChildIndex(i);
+            }
+            if (maxIndex == i) {
+                return;
+            }
+            ArrayUtils.swapArrayElement(data, maxIndex, i);
+            i = maxIndex;
         }
     }
 
@@ -166,12 +227,22 @@ public class MaxBinaryHeap {
         return line;
     }
 
+    /**
+     * 第一个非叶子节点元素的下标
+     */
+    private int firstNonLeafIndex() {
+        return size / 2;
+    }
+
     public static void main(String[] args) {
         int capacity = 20;
-        MaxBinaryHeap heap = new MaxBinaryHeap(capacity);
-        int[] array = ArrayUtils.generateRandomArray(10, 1, 200);
-        Arrays.stream(array).forEach(i -> heap.insert(i));
-        heap.showAsTree();
+        int[] array = ArrayUtils.generateRandomArray(capacity, 1, 200);
+        ArrayUtils.printArray(array);
+        MaxBinaryHeap heap = new MaxBinaryHeap(array);
+        for (int i = capacity - 1; i >= 0; i--) {
+            array[i] = heap.popMax();
+        }
+        ArrayUtils.printArray(array);
     }
 
 }

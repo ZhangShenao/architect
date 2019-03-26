@@ -1,0 +1,5 @@
+rocketmq:
+  namesrvAddr: '127.0.0.1:9876'
+  producerGroup: 'Test-Producer-Group'
+  consumerGroup: 'Test-Consumer-Group'
+  topic: 'Test-Topic'
