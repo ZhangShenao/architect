@@ -11,7 +11,8 @@ import java.util.List;
 /**
  * @Auther: ZhangShenao
  * @Date: 2018/11/4 11:33
- * @Description:模拟消费失败后的Broker自动重试 注:自动重试仅对集群消费模式有效
+ * @Description:模拟消费失败后的Broker自动重试
+ * 注:自动重试仅对集群消费模式有效,广播模式下即使消费失败也不会自动重试
  */
 public class RetryListener implements MessageListenerConcurrently {
     private static final int MAX_RECONSUME_TIMES = 3;       //消费失败后，消息最大重试次数
@@ -21,7 +22,6 @@ public class RetryListener implements MessageListenerConcurrently {
         if (CollectionUtils.isEmpty(msgs)) {
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         }
-
         MessageExt messageExt = msgs.get(0);
         try {
             //逐条消费
