@@ -16,4 +16,8 @@ public interface RocketMQConstants {
     int RETRY_TIMES_WHEN_SEND_FAILED = 5;
 
     int SNED_TIME_OUT_MILLIS = 5 * 1000;
+
+    String TRANSACTION_TOPIC_NAME = "TX-Topic";
+    String TRANSACTION_PRODUCER_GROUP = "TX-Producer-Group";
+    String TRANSACTION_CONSUMER_GROUP = "TX-Consumer-Group";
 }
