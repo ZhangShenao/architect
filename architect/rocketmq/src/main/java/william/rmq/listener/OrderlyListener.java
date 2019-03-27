@@ -13,26 +13,26 @@ import java.util.List;
  * @Date: 2019/3/26 20:49
  * @Description:顺序消息监听器
  */
-public class OrderlyListener implements MessageListenerOrderly{
+public class OrderlyListener implements MessageListenerOrderly {
     @Override
     public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
         if (CollectionUtils.isEmpty(msgs)) {
             return ConsumeOrderlyStatus.SUCCESS;
         }
 
-        MessageExt messageExt = msgs.get(0);
-        try {
-            String topic = messageExt.getTopic();
-            String tags = messageExt.getTags();
-            String keys = messageExt.getKeys();
-            String payload = new String(messageExt.getBody(), RemotingHelper.DEFAULT_CHARSET);
-            System.err.println("消费消息,topic: " + topic + ",tags: " + tags + ",keys: " + keys + ",body: " + payload);
-            //消费成功,返回ConsumeConcurrentlyStatus.CONSUME_SUCCESS
-            return ConsumeOrderlyStatus.SUCCESS;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("消费消息失败:" + messageExt);
-            return ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
+        for (MessageExt messageExt : msgs) {
+            try {
+                String topic = messageExt.getTopic();
+                String tags = messageExt.getTags();
+                String keys = messageExt.getKeys();
+                String payload = new String(messageExt.getBody(), RemotingHelper.DEFAULT_CHARSET);
+                System.err.println("消费消息,topic: " + topic + ",tags: " + tags + ",keys: " + keys + ",body: " + payload);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println("消费消息失败:" + messageExt);
+                return ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
+            }
         }
+        return ConsumeOrderlyStatus.SUCCESS;
     }
 }

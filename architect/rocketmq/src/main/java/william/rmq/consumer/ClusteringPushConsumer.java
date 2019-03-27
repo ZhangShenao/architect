@@ -27,7 +27,7 @@ public class ClusteringPushConsumer {
             consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
 
             //订阅Topic,并且可以根据Tag对消息进行过滤,这个过滤是在Consumer端实现的
-            consumer.subscribe(RocketMQConstants.TOPIC_NAME, "TagA || TagB");
+            consumer.subscribe(RocketMQConstants.TOPIC_NAME, "*");
 
             //注册消息监听器
             consumer.registerMessageListener(new SimpleListener());
