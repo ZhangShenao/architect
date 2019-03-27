@@ -1,6 +1,7 @@
 package william.algorithm.bst;
 
 import william.algorithm.util.RandomArrayGenerator;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -9,74 +10,75 @@ import java.util.Queue;
  * @Auther: ZhangShenao
  * @Date: 2018/11/16 16:10
  * @Description:二叉搜索树，插入、删除和查找的时间复杂度均为O(logn)
+ * 由于BST并非完全二叉树, 所以更适合采用链表实现
  */
 public class BST {
     private int size;
     private Node root;
 
-    public Node insert(int key,int value){
-        this.root =  doInsert(root,key,value);
+    public Node insert(int key, int value) {
+        this.root = doInsert(root, key, value);
         return this.root;
     }
 
-    public boolean contains(int key){
-        return doContains(root,key);
+    public boolean contains(int key) {
+        return doContains(root, key);
     }
 
-    public boolean isEmpty(){
-        return this.size <= 0;
+    public boolean isEmpty() {
+        return this.size == 0;
     }
 
-    public int size(){
+    public int size() {
         return this.size;
     }
 
-    public void inOrder(){
+    public void inOrder() {
         doInOrder(this.root);
     }
 
-    public void preOrder(){
+    public void preOrder() {
         doPreOrder(this.root);
     }
 
-    public void postOrder(){
+    public void postOrder() {
         doPostOrder(this.root);
     }
 
-    public void levelOrder(){
+    public void levelOrder() {
         Queue<Node> queue = new LinkedList<>();
         queue.offer(this.root);
 
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             Node node = queue.poll();
             System.err.print(node.key + " ");
-            if (node.left != null){
+            if (node.left != null) {
                 queue.offer(node.left);
             }
-            if (node.right != null){
+            if (node.right != null) {
                 queue.offer(node.right);
             }
         }
     }
 
-    public int getMaxValue(){
+    public int getMaxValue() {
         return getMaxNode(this.root).value;
     }
 
-    public int getMinValue(){
+    public int getMinValue() {
         return getMinNode(this.root).value;
     }
 
-    public void deleteMax(){
+    public void deleteMax() {
         this.root = doDeleteMax(this.root);
     }
 
-    public void deleteMin(){
+    public void deleteMin() {
         this.root = doDeleteMin(this.root);
     }
 
-    private Node doDeleteMin(Node node){
-        if (node.left == null){
+    private Node doDeleteMin(Node node) {
+        if (node.left == null) {
             size--;
             return node.right;
         }
@@ -84,33 +86,33 @@ public class BST {
         return node;
     }
 
-    public void deleteNode(int key){
-        this.root = doDeleteNode(this.root,key);
+    public void deleteNode(int key) {
+        this.root = doDeleteNode(this.root, key);
     }
 
-    private Node doDeleteNode(Node node,int key){
-        if (node == null){
+    private Node doDeleteNode(Node node, int key) {
+        if (node == null) {
             return null;
         }
 
         //Delete Node with Only One Child or without Child
-        if (node.left == null){
+        if (node.left == null) {
             size--;
             return node.right;
         }
-        if (node.right == null){
+        if (node.right == null) {
             size--;
             return node.left;
         }
 
         //Delete Node with Two Children
-        if (key > node.key){
-            node.right = doDeleteNode(node.right,key);
+        if (key > node.key) {
+            node.right = doDeleteNode(node.right, key);
             return node;
         }
 
-        if (key < node.key){
-            node.left = doDeleteNode(node.left,key);
+        if (key < node.key) {
+            node.left = doDeleteNode(node.left, key);
             return node;
         }
 
@@ -123,8 +125,8 @@ public class BST {
         return successor;
     }
 
-    private Node doDeleteMax(Node node){
-        if (node.right == null){
+    private Node doDeleteMax(Node node) {
+        if (node.right == null) {
             size--;
             return node.left;
         }
@@ -132,22 +134,22 @@ public class BST {
         return node;
     }
 
-    private Node getMinNode(Node node){
-        if (node.left == null){
+    private Node getMinNode(Node node) {
+        if (node.left == null) {
             return node;
         }
         return getMinNode(node.left);
     }
 
-    private Node getMaxNode(Node node){
-        if (node.right == null){
+    private Node getMaxNode(Node node) {
+        if (node.right == null) {
             return node;
         }
         return getMaxNode(node.right);
     }
 
     private void doPostOrder(Node node) {
-        if (node == null){
+        if (node == null) {
             return;
         }
         doPostOrder(node.left);
@@ -156,7 +158,7 @@ public class BST {
     }
 
     private void doPreOrder(Node node) {
-        if (node == null){
+        if (node == null) {
             return;
         }
         System.err.print(node.key + " ");
@@ -164,39 +166,38 @@ public class BST {
         doPreOrder(node.right);
     }
 
-    private Node doInsert(Node node,int key,int value){
-        if (node == null){
+    private Node doInsert(Node node, int key, int value) {
+        if (node == null) {
             size++;
-            return new Node(key,value);
+            return new Node(key, value);
         }
-        if (node.key == key){
+        if (node.key == key) {
             node.value = value;
             return node;
         }
-        if (key > node.key){
-            node.right = doInsert(node.right,key,value);
-        }
-        else {
-            node.left = doInsert(node.left,key,value);
+        if (key > node.key) {
+            node.right = doInsert(node.right, key, value);
+        } else {
+            node.left = doInsert(node.left, key, value);
         }
         return node;
     }
 
-    private boolean doContains(Node node, int key){
-        if (node == null){
+    private boolean doContains(Node node, int key) {
+        if (node == null) {
             return false;
         }
-        if (node.key == key){
+        if (node.key == key) {
             return true;
         }
-        if (key > node.key){
-            return doContains(node.right,key);
+        if (key > node.key) {
+            return doContains(node.right, key);
         }
-        return doContains(node.left,key);
+        return doContains(node.left, key);
     }
 
-    private void doInOrder(Node node){
-        if (node == null){
+    private void doInOrder(Node node) {
+        if (node == null) {
             return;
         }
         doInOrder(node.left);
@@ -209,8 +210,8 @@ public class BST {
         int len = 10;
         int[] array = RandomArrayGenerator.generateRandomArray(len, -100, 100);
         System.err.println("arr: " + Arrays.toString(array));
-        for (int i = 0;i < len;i++){
-            bst.insert(array[i],array[i]);
+        for (int i = 0; i < len; i++) {
+            bst.insert(array[i], array[i]);
         }
 //        System.err.println("size: " + bst.size());
         System.err.println("InOrder:");
