@@ -1,244 +1,129 @@
 package william.algorithm.bst;
 
-import william.algorithm.util.RandomArrayGenerator;
-
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
-
 /**
  * @Auther: ZhangShenao
- * @Date: 2018/11/16 16:10
- * @Description:二叉搜索树，插入、删除和查找的时间复杂度均为O(logn)
- * 由于BST并非完全二叉树, 所以更适合采用链表实现
+ * @Date: 2019/3/28 10:20
+ * @Description:二叉搜索树，插入、删除和查找的时间复杂度均为O(logn) 由于BST并非完全二叉树, 所以更适合采用链表实现
  */
-public class BST {
+public class BST<K extends Comparable<K>, V> {
+    private Node<K, V> root;
     private int size;
-    private Node root;
 
-    public Node insert(int key, int value) {
-        this.root = doInsert(root, key, value);
-        return this.root;
+    public BST() {
+        this.root = null;
+        this.size = 0;
     }
 
-    public boolean contains(int key) {
-        return doContains(root, key);
+    public void insert(K key, V value) {
+        root = insert(root, key, value);
     }
 
-    public boolean isEmpty() {
-        return this.size == 0;
-    }
-
-    public int size() {
-        return this.size;
-    }
-
-    public void inOrder() {
-        doInOrder(this.root);
-    }
-
-    public void preOrder() {
-        doPreOrder(this.root);
-    }
-
-    public void postOrder() {
-        doPostOrder(this.root);
-    }
-
-    public void levelOrder() {
-        Queue<Node> queue = new LinkedList<>();
-        queue.offer(this.root);
-
-        while (!queue.isEmpty()) {
-            Node node = queue.poll();
-            System.err.print(node.key + " ");
-            if (node.left != null) {
-                queue.offer(node.left);
-            }
-            if (node.right != null) {
-                queue.offer(node.right);
-            }
-        }
-    }
-
-    public int getMaxValue() {
-        return getMaxNode(this.root).value;
-    }
-
-    public int getMinValue() {
-        return getMinNode(this.root).value;
-    }
-
-    public void deleteMax() {
-        this.root = doDeleteMax(this.root);
-    }
-
-    public void deleteMin() {
-        this.root = doDeleteMin(this.root);
-    }
-
-    private Node doDeleteMin(Node node) {
-        if (node.left == null) {
-            size--;
-            return node.right;
-        }
-        node.left = doDeleteMin(node.left);
-        return node;
-    }
-
-    public void deleteNode(int key) {
-        this.root = doDeleteNode(this.root, key);
-    }
-
-    private Node doDeleteNode(Node node, int key) {
+    /**
+     * 插入节点,返回插入后的BST的根节点
+     */
+    private Node<K, V> insert(Node<K, V> node, K key, V value) {
+        //退出条件:如果当前节点为空,则直接返回新节点
         if (node == null) {
-            return null;
+            ++size;
+            return new Node<>(key, value);
         }
 
-        //Delete Node with Only One Child or without Child
-        if (node.left == null) {
-            size--;
-            return node.right;
-        }
-        if (node.right == null) {
-            size--;
-            return node.left;
-        }
-
-        //Delete Node with Two Children
-        if (key > node.key) {
-            node.right = doDeleteNode(node.right, key);
-            return node;
-        }
-
-        if (key < node.key) {
-            node.left = doDeleteNode(node.left, key);
-            return node;
-        }
-
-        //Find Min in Right Sub-Tree
-        Node successor = getMinNode(node.right).copy();   //No Null Definitely
-        successor.right = doDeleteMin(node.right);
-        size++;
-        successor.left = node.left;
-        size--;
-        return successor;
-    }
-
-    private Node doDeleteMax(Node node) {
-        if (node.right == null) {
-            size--;
-            return node.left;
-        }
-        node.right = doDeleteMax(node.right);
-        return node;
-    }
-
-    private Node getMinNode(Node node) {
-        if (node.left == null) {
-            return node;
-        }
-        return getMinNode(node.left);
-    }
-
-    private Node getMaxNode(Node node) {
-        if (node.right == null) {
-            return node;
-        }
-        return getMaxNode(node.right);
-    }
-
-    private void doPostOrder(Node node) {
-        if (node == null) {
-            return;
-        }
-        doPostOrder(node.left);
-        doPostOrder(node.right);
-        System.err.print(node.key + " ");
-    }
-
-    private void doPreOrder(Node node) {
-        if (node == null) {
-            return;
-        }
-        System.err.print(node.key + " ");
-        doPreOrder(node.left);
-        doPreOrder(node.right);
-    }
-
-    private Node doInsert(Node node, int key, int value) {
-        if (node == null) {
-            size++;
-            return new Node(key, value);
-        }
-        if (node.key == key) {
+        //如果存在相同的Key,则仅更新Value值
+        if (node.key.compareTo(key) == 0) {
             node.value = value;
             return node;
         }
-        if (key > node.key) {
-            node.right = doInsert(node.right, key, value);
+
+        //将当前节点的Key和待插入的Key进行比较,决定向左子树插入还是向右子树插入
+        if (key.compareTo(node.key) > 0) {
+            node.right = insert(node.right, key, value);
         } else {
-            node.left = doInsert(node.left, key, value);
+            node.left = insert(node.left, key, value);
         }
+        ++size;
         return node;
+
     }
 
-    private boolean doContains(Node node, int key) {
+    public boolean contains(K key) {
+        return contains(root, key);
+    }
+
+    public V search(K key) {
+        return search(root, key);
+    }
+
+    /**
+     * 从node节点开始递归查找是否存在指定Key的元素
+     */
+    private boolean contains(Node<K, V> node, K key) {
         if (node == null) {
             return false;
         }
-        if (node.key == key) {
+        if (node.key.compareTo(key) == 0) {
             return true;
         }
-        if (key > node.key) {
-            return doContains(node.right, key);
+        if (key.compareTo(node.key) > 0) {
+            return contains(node.right, key);
         }
-        return doContains(node.left, key);
+        return contains(node.left, key);
     }
 
-    private void doInOrder(Node node) {
+    /**
+     * 从node节点开始查找指定Key的元素,如果不存在则返回null
+     *
+     * @param node
+     * @param key
+     * @return
+     */
+    private V search(Node<K, V> node, K key) {
         if (node == null) {
-            return;
+            return null;
         }
-        doInOrder(node.left);
-        System.err.print(node.key + " ");
-        doInOrder(node.right);
+        if (key.compareTo(node.key) == 0) {
+            return node.value;
+        }
+        if (key.compareTo(node.key) > 0) {
+            return search(node.right, key);
+        }
+        return search(node.left, key);
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    /**
+     * BST内部节点
+     */
+    private static class Node<K, V> {
+        private K key;
+        private V value;
+        private Node<K, V> left;
+        private Node<K, V> right;
+
+        public Node(K key, V value) {
+            this.key = key;
+            this.value = value;
+            this.left = this.right = null;
+        }
     }
 
     public static void main(String[] args) {
-        BST bst = new BST();
-        int len = 10;
-        int[] array = RandomArrayGenerator.generateRandomArray(len, -100, 100);
-        System.err.println("arr: " + Arrays.toString(array));
-        for (int i = 0; i < len; i++) {
-            bst.insert(array[i], array[i]);
-        }
-//        System.err.println("size: " + bst.size());
-        System.err.println("InOrder:");
-        bst.inOrder();
-        System.err.println();
-        /*System.err.println("PreOrder:");
-        bst.preOrder();
-        System.err.println();
-        System.err.println("PostOrder:");
-        bst.postOrder();
-        System.err.println();
-        System.err.println("LevelOrder:");
-        bst.levelOrder();
-        System.err.println();*/
-        /*System.err.println("Max Value: " + bst.getMaxValue());
-        System.err.println("Min Value: " + bst.getMinValue());
-        System.err.println("Delete Max: ");
-        bst.deleteMax();
-        bst.inOrder();
-        System.err.println();
-        System.err.println("Delete Min: ");
-        bst.deleteMin();
-        bst.inOrder();
-        System.err.println();*/
-        System.err.println("Delete Key: " + array[5]);
-        bst.deleteNode(array[5]);
-        bst.inOrder();
-        System.err.println();
+        BST<Integer, Integer> bst = new BST<>();
+        bst.insert(10,10);
+        bst.insert(100,100);
+        bst.insert(-99,-99);
+        bst.insert(87,87);
+        bst.insert(999,999);
+        bst.insert(-1,-1);
+        System.err.println(bst.contains(10));
+        System.err.println(bst.contains(10000));
+        System.err.println(bst.search(-1));
+        System.err.println(bst.search(-5));
     }
 }
