@@ -1,5 +1,11 @@
 package william.algorithm.bst;
 
+import william.algorithm.util.RandomArrayGenerator;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Optional;
+import java.util.Queue;
+
 /**
  * @Auther: ZhangShenao
  * @Date: 2019/3/28 10:20
@@ -51,6 +57,83 @@ public class BST<K extends Comparable<K>, V> {
 
     public V search(K key) {
         return search(root, key);
+    }
+
+    /**
+     * 前序遍历
+     */
+    public void preOrder() {
+        System.err.println("前序遍历: ");
+        preOrder(root);
+        System.err.println();
+    }
+
+    private void preOrder(Node<K, V> node) {
+        if (node == null) {
+            return;
+        }
+        System.err.print(node.key + " , ");
+        preOrder(node.left);
+        preOrder(node.right);
+    }
+
+    /**
+     * 中序遍历
+     */
+    public void inOrder() {
+        System.err.println("中序遍历");
+        inOrder(root);
+        System.err.println();
+    }
+
+    private void inOrder(Node<K, V> node) {
+        if (node == null) {
+            return;
+        }
+        inOrder(node.left);
+        System.err.print(node.key + " , ");
+        inOrder(node.right);
+    }
+
+    /**
+     * 后序遍历
+     */
+    public void postOrder() {
+        System.err.println("后序遍历: ");
+        postOrder(root);
+        System.err.println();
+    }
+
+    private void postOrder(Node<K, V> node) {
+        if (node == null) {
+            return;
+        }
+        postOrder(node.left);
+        postOrder(node.right);
+        System.err.print(node.key + " , ");
+    }
+
+    /**
+     * 广度优先遍历(层序遍历)
+     */
+    public void levelOrder(){
+        System.err.println("层序遍历");
+        //通过一个队列保存节点
+        Queue<Node<K,V>> queue = new LinkedList<>();
+
+        //首先将根节点入队
+        queue.offer(root);
+
+        //从队列中依次取节点进行遍历
+        while (!queue.isEmpty()){
+            Node<K, V> node = queue.poll();
+            System.err.print(node.key + " , ");
+
+            //将节点的左、右子节点入队
+            Optional.ofNullable(node.left).ifPresent(queue::offer);
+            Optional.ofNullable(node.right).ifPresent(queue::offer);
+        }
+        System.err.println();
     }
 
     /**
@@ -113,17 +196,18 @@ public class BST<K extends Comparable<K>, V> {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         BST<Integer, Integer> bst = new BST<>();
-        bst.insert(10,10);
-        bst.insert(100,100);
-        bst.insert(-99,-99);
-        bst.insert(87,87);
-        bst.insert(999,999);
-        bst.insert(-1,-1);
-        System.err.println(bst.contains(10));
-        System.err.println(bst.contains(10000));
-        System.err.println(bst.search(-1));
-        System.err.println(bst.search(-5));
+        int len = 20;
+        int[] array = RandomArrayGenerator.generateRandomArray(len, -100, 100);
+        System.err.println("arr: " + Arrays.toString(array));
+        for (int i = 0; i < len; i++) {
+            bst.insert(array[i], array[i]);
+        }
+        bst.preOrder();
+        bst.inOrder();
+        bst.postOrder();
+        bst.levelOrder();
+        Thread.sleep(Long.MAX_VALUE);
     }
 }
