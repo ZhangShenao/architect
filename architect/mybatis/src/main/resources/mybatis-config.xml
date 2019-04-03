@@ -9,7 +9,7 @@
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true" />
         <!--开启二级缓存-->
-        <!--<setting name="cacheEnabled" value="true"/>-->
+        <setting name="cacheEnabled" value="true"/>
 	</settings>
 
     <!--别名配置-->
