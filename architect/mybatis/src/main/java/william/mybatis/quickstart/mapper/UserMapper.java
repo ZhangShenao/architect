@@ -1,6 +1,6 @@
 package william.mybatis.quickstart.mapper;
 
-import org.apache.ibatis.annotations.CacheNamespaceRef;
+import org.apache.ibatis.annotations.Param;
 import william.mybatis.quickstart.entity.UserEntity;
 
 /**
@@ -10,7 +10,7 @@ import william.mybatis.quickstart.entity.UserEntity;
  */
 public interface UserMapper {
 
-    UserEntity selectById(long userId);
+    UserEntity selectById(@Param("id") long userId);
 
     void insert(UserEntity userEntity);
 

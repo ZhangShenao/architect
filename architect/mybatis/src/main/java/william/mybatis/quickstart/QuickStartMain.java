@@ -11,6 +11,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.util.ResourceUtils;
 import william.mybatis.quickstart.entity.UserEntity;
 import william.mybatis.quickstart.mapper.UserMapper;
+
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -30,7 +31,7 @@ public class QuickStartMain {
     }
 
     @Test
-    public void testGetUserById(){
+    public void testGetUserById() {
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         UserEntity userEntity = userMapper.selectById(1L);
@@ -39,7 +40,9 @@ public class QuickStartMain {
 
     @Test
     public void testInsert() {
-        SqlSession sqlSession = sqlSessionFactory.openSession(true);    //自动提交事务
+        //自动提交事务,默认为false
+        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         UserEntity userEntity = new UserEntity();
         userEntity.setUserName("James");
@@ -53,9 +56,10 @@ public class QuickStartMain {
     }
 
     @Test
-    public void testBatchInsert(){
+    public void testBatchInsert() {
         //设置Batch模式的SqlSession,批量执行SQL
-        SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
+        //ExecutorType默认为SIMPLE
+        SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, true);
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         UserEntity userEntity1 = new UserEntity();
         userEntity1.setUserName("James");
@@ -64,6 +68,8 @@ public class QuickStartMain {
         userEntity1.setSex(1);
         userEntity1.setEmail("james@qq.com");
         userEntity1.setNote("小皇帝");
+
+        //调用Mapper的方法,此时并不会真正执行SQL语句
         userMapper.insert(userEntity1);
         System.err.println("Insert UserEntity1");
         UserEntity userEntity2 = new UserEntity();
@@ -73,14 +79,18 @@ public class QuickStartMain {
         userEntity2.setSex(1);
         userEntity2.setEmail("kobe@qq.com");
         userEntity2.setNote("黑曼巴");
+
+        //调用Mapper的方法,此时并不会真正执行SQL语句
         userMapper.insert(userEntity2);
-        //提交事务,此时批量语句同事执行
+
+
+        //提交事务,此时批量语句一起执行
         sqlSession.commit();
         System.err.println("Insert UserEntity2");
     }
 
     @Test
-    public void testLevel1Cache(){
+    public void testLevel1Cache() {
         //测试一级缓存，SqlSession级别，默认开启。MyBatis将Mapper的方法名和参数，通用一定算法，生成缓存的Key
         //任何的insert、update和delete操作都会清空一级缓存
         //第一次查询，走DB
@@ -101,7 +111,7 @@ public class QuickStartMain {
     }
 
     @Test
-    public void testLevel2Cache(){
+    public void testLevel2Cache() {
         //二级缓存存在于 SqlSessionFactory 的生命周期中，可以理解为跨sqlSession；
         //缓存是以namespace为单位的，不同namespace下的操作互不影响。
 
