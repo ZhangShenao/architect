@@ -89,49 +89,64 @@ public class QuickStartMain {
         System.err.println("Insert UserEntity2");
     }
 
+    //测试一级缓存,SqlSession级别,默认开启。
+    //MyBatis将Mapper的方法名和参数,通用一定算法,生成缓存的Key
+    //任何的insert、update和delete操作都会清空一级缓存
     @Test
     public void testLevel1Cache() {
-        //测试一级缓存，SqlSession级别，默认开启。MyBatis将Mapper的方法名和参数，通用一定算法，生成缓存的Key
-        //任何的insert、update和delete操作都会清空一级缓存
-        //第一次查询，走DB
+        //第一次查询,走DB
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         UserEntity userEntity = userMapper.selectById(1L);
         System.err.println(userEntity);
 
-        //update操作会更新缓存
+        //由于一级缓存是SqlSession级别,因此关闭SqlSession后会清空缓存
+        /*sqlSession.close();
+        sqlSession = sqlSessionFactory.openSession(true);*/
+
+
+        //Insert、Update和Delete操作都会更新缓存
         userEntity.setNote("New Note");
         userMapper.update(userEntity);
 
 
-        //第二次查询，走缓存
+        //第二次查询,走缓存
         UserMapper userMapper1 = sqlSession.getMapper(UserMapper.class);
         UserEntity userEntity1 = userMapper1.selectById(1L);
         System.err.println(userEntity1);
     }
 
+    //二级缓存存在于SqlSessionFactory的生命周期中,可以理解为跨sqlSession
+    //二级缓存是以namespace为单位的,不同namespace下的操作互不影响。
+    //生成环境下建议关闭二级缓存,因为二级缓存容易造成多namespace之间共享一份缓存,从而出现脏读的情况
     @Test
     public void testLevel2Cache() {
-        //二级缓存存在于 SqlSessionFactory 的生命周期中，可以理解为跨sqlSession；
-        //缓存是以namespace为单位的，不同namespace下的操作互不影响。
-
-        //第一次查询，走DB
+        //第一次查询,走DB
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         UserEntity userEntity = userMapper.selectById(1L);
         System.err.println(userEntity);
-        sqlSession.commit();
+        sqlSession.commit();        //提交SqlSession,此时会更新缓存
 
-        //执行更新操作，会清空二级缓存
-       /* userEntity.setNote("New Note1111");
-        userMapper.update(userEntity);
-        sqlSession.commit();*/
+        //第二次查询,走二级缓存
+        UserEntity userEntity1 = userMapper.selectById(1L);
+        System.err.println(userEntity1);
 
-        //第二次查询，走二级缓存
+        //由于二级缓存是SqlSessionFactory级别的,因此关闭SqlSession不会清空二级缓存
+        sqlSession.close();
+
+        //执行更新操作,会清空二级缓存
         SqlSession sqlSession2 = sqlSessionFactory.openSession();
         UserMapper userMapper2 = sqlSession2.getMapper(UserMapper.class);
-        UserEntity userEntity2 = userMapper2.selectById(1L);
-        System.err.println(userEntity2);
+        userEntity.setNote("New Note1111");
+        userMapper2.update(userEntity);
+        sqlSession2.commit();
+
+        //第三次查询,尽管使用了新创建的SqlSession,但是由于二级缓存是SqlSessionFactory级别的,因此仍然会走二级缓存
+        SqlSession sqlSession3 = sqlSessionFactory.openSession();
+        UserMapper userMapper3 = sqlSession3.getMapper(UserMapper.class);
+        UserEntity userEntity3 = userMapper3.selectById(1L);
+        System.err.println(userEntity3);
     }
 
 }

@@ -27,7 +27,7 @@
 
     </sql>
 
-	<!--可以通过flushCache="true"禁用一级缓存-->
+	<!--一级缓存默认开启,可以通过flushCache="true"禁用一级缓存-->
 	<select id="selectById" resultMap="UserEntityResultMap" parameterType="long" resultType="UserEntity" >
 		select
         <!--引用SQL片段-->
