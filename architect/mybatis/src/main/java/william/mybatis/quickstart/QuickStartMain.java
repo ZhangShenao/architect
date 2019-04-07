@@ -5,10 +5,7 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.ReflectorFactory;
 import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
 import org.apache.ibatis.reflection.factory.ObjectFactory;
-import org.apache.ibatis.reflection.property.PropertyTokenizer;
-import org.apache.ibatis.reflection.wrapper.BeanWrapper;
 import org.apache.ibatis.reflection.wrapper.DefaultObjectWrapperFactory;
-import org.apache.ibatis.reflection.wrapper.ObjectWrapper;
 import org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
@@ -16,19 +13,13 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.util.ResourceUtils;
 import william.mybatis.quickstart.entity.UserEntity;
 import william.mybatis.quickstart.mapper.UserMapper;
-
 import java.io.InputStream;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @Auther: ZhangShenao

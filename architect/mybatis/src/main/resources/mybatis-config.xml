@@ -17,6 +17,13 @@
         <typeAlias type="william.mybatis.quickstart.entity.UserEntity" alias="UserEntity"/>
     </typeAliases>
 
+    <!--注册插件-->
+    <plugins>
+        <plugin interceptor="william.mybatis.quickstart.SlowQueryMonitor">
+            <property name="threshold" value="10"/>
+        </plugin>
+    </plugins>
+
     <!--配置environment环境 -->
     <environments default="development">
         <!-- 环境配置1，每个SqlSessionFactory对应一个环境 -->
@@ -43,5 +50,4 @@
 		<mapper class="william.mybatis.quickstart.mapper.UserMapper"/>
 	</mappers>-->
 
-
-</configuration>  
+</configuration>
