@@ -7,6 +7,8 @@ import william.springboot.dto.UserDto;
 import william.springboot.entity.UserEntity;
 import william.springboot.mapper.UserMapper;
 import william.springboot.service.UserService;
+
+import javax.annotation.PostConstruct;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;

@@ -1,20 +1,25 @@
 package william.mybatis.quickstart;
 
+import org.apache.ibatis.reflection.DefaultReflectorFactory;
+import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.ReflectorFactory;
+import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
+import org.apache.ibatis.reflection.factory.ObjectFactory;
+import org.apache.ibatis.reflection.wrapper.DefaultObjectWrapperFactory;
+import org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.util.ResourceUtils;
 import william.mybatis.quickstart.entity.UserEntity;
 import william.mybatis.quickstart.mapper.UserMapper;
-
 import java.io.InputStream;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Auther: ZhangShenao
@@ -147,6 +152,40 @@ public class QuickStartMain {
         UserMapper userMapper3 = sqlSession3.getMapper(UserMapper.class);
         UserEntity userEntity3 = userMapper3.selectById(1L);
         System.err.println(userEntity3);
+    }
+
+    //MyBatis反射工具箱的使用
+    @Test
+    public void testReflect(){
+        //创建ObjectFactory
+        ObjectFactory objectFactory = new DefaultObjectFactory();
+
+        //通过ObjectFactory实例化对象
+        UserEntity user = objectFactory.create(UserEntity.class);
+
+        //创建ObjectWrapperFactory
+        ObjectWrapperFactory objectWrapperFactory = new DefaultObjectWrapperFactory();
+
+        //创建ReflectorFactory
+        ReflectorFactory reflectorFactory = new DefaultReflectorFactory();
+
+        //通过原始对象,ObjectFactory、ObjectWrapperFactory和ReflectorFactory,创建MetaObject
+        MetaObject metaObject = MetaObject.forObject(user, objectFactory, objectWrapperFactory, reflectorFactory);
+
+        //通过MetaObject可以方便地对对象属性进行处理
+        Map<String,Object> props = new HashMap<>();
+        props.put("id",1L);
+        props.put("userName","James");
+        props.put("realName","James");
+        props.put("sex",1);
+        props.put("mobile","12345678901");
+        props.put("email","James@qq.com");
+        props.put("note","小皇帝");
+        props.forEach(metaObject::setValue);
+
+        System.err.println("getterNames: " + Arrays.toString(metaObject.getGetterNames()));
+
+        System.err.println(metaObject.getOriginalObject());
     }
 
 }
