@@ -26,7 +26,7 @@ public class ManualCommitOffsetConsumer {
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, KafkaConstants.CONSUMER_GROUP);
 
-        //关闭位移自动提交
+        //关闭位移自动提交,使用手动提交
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
@@ -41,11 +41,11 @@ public class ManualCommitOffsetConsumer {
                 }
                 messages.forEach(m -> System.err.println(String.format("New Message[topic: %s, partition: %s, offset: %s, key: %s, value: %s]", m.topic(), m.partition(), m.offset(), m.key(), m.value())));
 
-                //当消息拉取到一定数量时,手动提交位移
+                //当消息拉取到一定数量时,手动提交位移,提交的offset是本次poll拉取的最大offset
                 //如果消息消费成功,但是提交位移是Consumer宕机,则会导致消费位移提交失败,Consumer重启后可能会消费到重复的消息
                 if (buffers.size() >= MAX_BATCH_SIZE){
                     persistMessages(buffers);
-                    consumer.commitSync();
+                    consumer.commitSync();      //同步提交,会自动进行失败重试
                     buffers.clear();
                 }
             }
