@@ -29,6 +29,7 @@ public class SlowQueryMonitor implements Interceptor {
         if (cost > threshold) {
             Statement statement = (Statement) invocation.getArgs()[0];
             MetaObject metaObject = SystemMetaObject.forObject(statement);
+            //获取动态代理的PreparedStatementLogger对象
             PreparedStatementLogger logger = (PreparedStatementLogger) metaObject.getValue("h");
             PreparedStatement preparedStatement = logger.getPreparedStatement();
             System.err.println(String.format("慢查询! [时长: %s, sql: %s]", cost, preparedStatement));

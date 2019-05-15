@@ -21,7 +21,7 @@ public class AuditPartitioner implements Partitioner {
     @Override
     public int partition(String topic, Object key, byte[] keyBytes, Object value, byte[] valueBytes, Cluster cluster) {
         String k = (String) key;
-        //获取所有可用的分区
+        //获取该Topic下所有可用的分区
         List<PartitionInfo> partitions = cluster.availablePartitionsForTopic(topic);
         int partitionSize = partitions.size();
         int auditPartition = partitionSize - 1;

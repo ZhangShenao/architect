@@ -20,12 +20,14 @@ import java.util.concurrent.ExecutionException;
 public class SimpleProducer {
     public static void main(String[] args) {
         //Step1:构造Properties对象,指定Producer的一些属性
+        //Required
         Properties props = new Properties();
         //设置Kafka服务器地址,必须指定。如果Kafka集群中机器数很多,那么只需要指定部分Broker即可,不需要列出所有的机器。因为不管指定几台机器,Producer都会通过该参数找到井发现集群中所有的Broker
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         //因为Kafka Broker端的消息都为字节数组格式,因此必须为消息的key和value指定序列化机制。(必须使用全限定类名)
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class); //设置key和value的序列化类型,因为kafka中数据都是字节数组形式。必须指定
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+
         //Optional
         props.put(ProducerConfig.ACKS_CONFIG, "-1");    //指定Broker端消息持久化机制
         props.put(ProducerConfig.RETRIES_CONFIG, 3);    //对于可重试异常,指定消息重试次数
