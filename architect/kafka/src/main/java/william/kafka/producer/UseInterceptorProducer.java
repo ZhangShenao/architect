@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
+import static org.apache.kafka.clients.producer.ProducerConfig.*;
+
 /**
  * @Auther: ZhangShenao
  * @Date: 2019/2/19 15:31
@@ -19,15 +21,15 @@ import java.util.Properties;
 public class UseInterceptorProducer {
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class); //设置key和value的序列化类型,因为kafka中数据都是字节数组形式。必须指定
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        props.put(KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class); //设置key和value的序列化类型,因为kafka中数据都是字节数组形式。必须指定
+        props.put(VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 
         //构建拦截器链
         List<String> interceptors = new LinkedList<>();
         interceptors.add("william.kafka.interceptor.TimestampPrependerInterceptor");
         interceptors.add("william.kafka.interceptor.CounterInterceptor");
-        props.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG,interceptors);
+        props.put(INTERCEPTOR_CLASSES_CONFIG,interceptors);
 
         KafkaProducer<String, String> producer = new KafkaProducer<>(props);
 
@@ -43,7 +45,7 @@ public class UseInterceptorProducer {
             e.printStackTrace();
         } finally {
             //一定要关闭KafkaProducer,这样才会调用ProducerInterceptor的close()方法
-            Optional.ofNullable(producer).ifPresent(p -> p.close());
+            Optional.of(producer).ifPresent(KafkaProducer::close);
         }
     }
 }

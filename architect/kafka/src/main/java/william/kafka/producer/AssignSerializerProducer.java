@@ -11,6 +11,8 @@ import william.kafka.serializer.UserSerializer;
 import java.util.Optional;
 import java.util.Properties;
 
+import static org.apache.kafka.clients.producer.ProducerConfig.*;
+
 /**
  * @Auther: ZhangShenao
  * @Date: 2019/2/19 15:31
@@ -21,9 +23,9 @@ public class AssignSerializerProducer {
         Properties props = new Properties();
 
         //自定义序列化机制
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, UserSerializer.class);
+        props.put(BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        props.put(KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(VALUE_SERIALIZER_CLASS_CONFIG, UserSerializer.class);
 
         KafkaProducer<String, User> producer = new KafkaProducer<>(props);
 
@@ -41,7 +43,7 @@ public class AssignSerializerProducer {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Optional.ofNullable(producer).ifPresent(p -> p.close());
+            Optional.of(producer).ifPresent(KafkaProducer::close);
         }
     }
 }

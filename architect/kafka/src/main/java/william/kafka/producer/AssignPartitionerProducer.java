@@ -1,15 +1,14 @@
 package william.kafka.producer;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 import william.kafka.constant.KafkaConstants;
 import william.kafka.partitioner.AuditPartitioner;
-
 import java.util.Optional;
 import java.util.Properties;
+import static org.apache.kafka.clients.producer.ProducerConfig.*;
 
 /**
  * @Auther: ZhangShenao
@@ -19,12 +18,12 @@ import java.util.Properties;
 public class AssignPartitionerProducer {
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        props.put(KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 
         //使用自定义分区器
-        props.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, AuditPartitioner.class);
+        props.put(PARTITIONER_CLASS_CONFIG, AuditPartitioner.class);
         KafkaProducer<String, String> producer = new KafkaProducer<>(props);
 
         try {
@@ -55,7 +54,7 @@ public class AssignPartitionerProducer {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            Optional.ofNullable(producer).ifPresent(p -> p.close());
+            Optional.of(producer).ifPresent(KafkaProducer::close);
         }
     }
 }
