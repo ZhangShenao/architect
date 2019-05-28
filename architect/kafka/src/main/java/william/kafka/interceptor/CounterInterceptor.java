@@ -22,6 +22,7 @@ public class CounterInterceptor implements ProducerInterceptor<String, String> {
 
     @Override
     public void onAcknowledgement(RecordMetadata metadata, Exception exception) {
+        //在消息发送成功并接收到Broker的ACK之后、或消息发送失败之后调用
         if (exception == null) {
             successCount.incrementAndGet();
         } else {

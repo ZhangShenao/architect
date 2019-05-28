@@ -13,6 +13,7 @@ import java.util.Map;
 public class TimestampPrependerInterceptor implements ProducerInterceptor<String, String> {
     @Override
     public ProducerRecord<String, String> onSend(ProducerRecord<String, String> record) {
+        //在消息被序列化和计算分区之前调用
         return new ProducerRecord(record.topic(), record.partition(), record.timestamp(), record.key(), System.currentTimeMillis() + "," + record.value());
     }
 

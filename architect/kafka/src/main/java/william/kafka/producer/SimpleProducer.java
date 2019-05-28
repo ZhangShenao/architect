@@ -1,16 +1,14 @@
 package william.kafka.producer;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.errors.RetriableException;
 import org.apache.kafka.common.serialization.StringSerializer;
 import william.kafka.constant.KafkaConstants;
-
 import java.util.Optional;
 import java.util.Properties;
-import java.util.concurrent.ExecutionException;
+import static org.apache.kafka.clients.producer.ProducerConfig.*;
 
 /**
  * @Auther: ZhangShenao
@@ -23,18 +21,21 @@ public class SimpleProducer {
         //Required
         Properties props = new Properties();
         //设置Kafka服务器地址,必须指定。如果Kafka集群中机器数很多,那么只需要指定部分Broker即可,不需要列出所有的机器。因为不管指定几台机器,Producer都会通过该参数找到井发现集群中所有的Broker
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        props.put(BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         //因为Kafka Broker端的消息都为字节数组格式,因此必须为消息的key和value指定序列化机制。(必须使用全限定类名)
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class); //设置key和value的序列化类型,因为kafka中数据都是字节数组形式。必须指定
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class); //设置key和value的序列化类型,因为kafka中数据都是字节数组形式。必须指定
+        props.put(VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 
         //Optional
-        props.put(ProducerConfig.ACKS_CONFIG, "-1");    //指定Broker端消息持久化机制
-        props.put(ProducerConfig.RETRIES_CONFIG, 3);    //对于可重试异常,指定消息重试次数
-        props.put(ProducerConfig.BATCH_SIZE_CONFIG, 323840);    //消息发送Batch的大小
-        props.put(ProducerConfig.LINGER_MS_CONFIG, 10);         //消息发送的延时时间
-        props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);   //指定Producer端用于缓存消息的缓冲区大小
-        props.put(ProducerConfig.MAX_BLOCK_MS_CONFIG, 3000);
+        props.put(ACKS_CONFIG, "1");                 //指定Broker端消息持久化机制,多少个Partition持久化消息成功后给Producer发送ACK
+        props.put(BUFFER_MEMORY_CONFIG, 33554432);   //指定Producer端用于缓存消息的缓冲区大小
+        props.put(COMPRESSION_TYPE_CONFIG,"lz4");    //消息压缩算法,压缩消息可以有效减少网络带宽,但是会增大CPU的压力
+        props.put(RETRIES_CONFIG, 3);                //对于可重试异常,指定消息重试次数
+        props.put(BATCH_SIZE_CONFIG, 323840);        //消息发送Batch的大小
+        props.put(LINGER_MS_CONFIG, 10);             //消息发送的延时时间
+        props.put(MAX_REQUEST_SIZE_CONFIG,10485760); //Producer端发送消息的最大大小
+        props.put(REQUEST_TIMEOUT_MS_CONFIG,60000);  //Producer端发送消息的超时时间
+        props.put(MAX_BLOCK_MS_CONFIG, 3000);
 
         //Step2:使用构造好的Properties对象创建KafkaProducer实例
         KafkaProducer<String, String> producer = new KafkaProducer<>(props);
@@ -72,7 +73,7 @@ public class SimpleProducer {
             e.printStackTrace();
         } finally {
             //Step5:关闭KafkaProducer。Producer程序运行结束后,一定要关闭KafkaProducer
-            Optional.ofNullable(producer).ifPresent(p -> p.close());
+            Optional.of(producer).ifPresent(KafkaProducer::close);
         }
     }
 }
