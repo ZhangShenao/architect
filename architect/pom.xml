@@ -23,6 +23,7 @@
         <module>springboot</module>
         <module>elastic-job</module>
         <module>cache</module>
+        <module>leetcode</module>
     </modules>
     <packaging>pom</packaging>
 

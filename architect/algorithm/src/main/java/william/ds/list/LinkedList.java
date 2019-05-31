@@ -43,12 +43,7 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public E get(int index) {
-        checkIndex(index);
-        Node<E> n = first;
-        for (int i = 0; i < index; i++) {
-            n = n.next;
-        }
-        return n.data;
+        return node(index).data;
     }
 
     @Override
@@ -86,10 +81,7 @@ public class LinkedList<E> implements List<E> {
         }
 
         //在中间插入,找到前驱节点
-        Node<E> prev = first;
-        for (int i = 0; i < index - 1; i++) {
-            prev = prev.next;
-        }
+        Node<E> prev = node(index - 1);
         Node<E> cur = new Node<>(e, prev.next);
         prev.next = cur;
         ++size;
@@ -114,10 +106,7 @@ public class LinkedList<E> implements List<E> {
         }
 
         //删除中间节点,找到前驱节点
-        Node<E> prev = first;
-        for (int i = 0; i < index - 1; i++) {
-            prev = prev.next;
-        }
+        Node<E> prev = node(index - 1);
         Node<E> cur = prev.next;
         E e = cur.data;
         prev.next = cur.next;
@@ -167,8 +156,8 @@ public class LinkedList<E> implements List<E> {
         if (first == null) {
             return null;
         }
-        if (first.next == null){
-            E e  = first.data;
+        if (first.next == null) {
+            E e = first.data;
             first = null;
             return e;
         }
@@ -193,6 +182,15 @@ public class LinkedList<E> implements List<E> {
             n = n.next;
         }
         return s.append(n.data).append("]").toString();
+    }
+
+    private Node<E> node(int index) {
+        checkIndex(index);
+        Node<E> n = first;
+        for (int i = 0; i < index; i++) {
+            n = n.next;
+        }
+        return n;
     }
 
 
