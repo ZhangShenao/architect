@@ -1,6 +1,5 @@
 package william.kafka.consumer;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -10,6 +9,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+import static org.apache.kafka.clients.consumer.ConsumerConfig.*;
 
 /**
  * @Auther: ZhangShenao
@@ -21,13 +21,13 @@ public class ManualCommitOffsetConsumer {
 
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, KafkaConstants.CONSUMER_GROUP);
+        props.put(BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(GROUP_ID_CONFIG, KafkaConstants.CONSUMER_GROUP);
 
         //关闭位移自动提交,使用手动提交
-        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");
+        props.put(ENABLE_AUTO_COMMIT_CONFIG,"false");
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Arrays.asList(KafkaConstants.TOPIC_NAME));

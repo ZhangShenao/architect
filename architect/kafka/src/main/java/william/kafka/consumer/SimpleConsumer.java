@@ -1,13 +1,12 @@
 package william.kafka.consumer;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import william.kafka.constant.KafkaConstants;
-
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Properties;
+import static org.apache.kafka.clients.consumer.ConsumerConfig.*;
+import static william.kafka.constant.KafkaConstants.*;
 
 /**
  * @Auther: ZhangShenao
@@ -22,21 +21,25 @@ public class SimpleConsumer {
         //Step1:构造Properties对象,配置Consumer相关属性
         Properties props = new Properties();
         //Required
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, KafkaConstants.CONSUMER_GROUP);
+        props.put(BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(GROUP_ID_CONFIG, CONSUMER_GROUP);
 
         //Optional
-        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
-        props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
-        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        props.put(SESSION_TIMEOUT_MS_CONFIG,5000L);             //Coordinator检测组内成员失效的时间
+        props.put(MAX_POLL_INTERVAL_MS_CONFIG,10000L);          //Consumer两次poll的最大时间间隔,即Consumer处理逻辑的最大时间
+        props.put(AUTO_OFFSET_RESET_CONFIG, "earliest");        //当Consumer端无offset信息时,从哪里开始消费
+        props.put(ENABLE_AUTO_COMMIT_CONFIG, "true");           //是否自动提交位移
+        props.put(FETCH_MAX_BYTES_CONFIG,10485760);             //Consumer端单次获取消息的最大字节数
+        props.put(MAX_POLL_RECORDS_CONFIG,5);                   //单次poll调用所返回的最大消息数
+        props.put(AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");      //Consumer自动提交offset的时间间隔
 
         //Step2:使用构建好的Properties对象,创建KafkaConsumer
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
 
         //Step3:调用KafkaConsumer的subscribe方法,订阅感兴趣的Topic集合
-        consumer.subscribe(Arrays.asList(KafkaConstants.TOPIC_NAME));
+        consumer.subscribe(Collections.singletonList(TOPIC_NAME));
 
         try {
             while (true) {
