@@ -3,7 +3,7 @@ package william.ds.list;
 /**
  * @Author: ZhangShenao
  * @Date: 2019/5/31 10:00
- * @Description:线性表ADT
+ * @Description:线性表
  */
 public interface List<E> {
     /**

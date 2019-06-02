@@ -199,6 +199,13 @@ public class LinkedList<E> implements List<E> {
         ++size;
     }
 
+
+    private void checkIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("index out of bounds: " + index);
+        }
+    }
+
     private static class Node<E> {
         E data;
         Node<E> next;
@@ -206,12 +213,6 @@ public class LinkedList<E> implements List<E> {
         public Node(E data, Node<E> next) {
             this.data = data;
             this.next = next;
-        }
-    }
-
-    private void checkIndex(int index) {
-        if (index < 0 || index >= size) {
-            throw new IllegalArgumentException("index out of bounds: " + index);
         }
     }
 }
