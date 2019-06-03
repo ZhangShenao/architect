@@ -1,4 +1,4 @@
-package william.algo;
+package william.algo.sort;
 
 /**
  * @Author: ZhangShenao

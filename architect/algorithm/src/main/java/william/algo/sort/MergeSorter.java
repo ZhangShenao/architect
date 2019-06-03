@@ -1,9 +1,9 @@
-package william.algo;
+package william.algo.sort;
 
 /**
  * @Author: ZhangShenao
  * @Date: 2019/6/2 18:05
- * @Description:
+ * @Description:归并排序
  */
 public class MergeSorter implements Sorter {
     @Override
