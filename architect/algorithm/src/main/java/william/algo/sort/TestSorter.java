@@ -1,4 +1,4 @@
-package william.algo;
+package william.algo.sort;
 
 import org.junit.Test;
 import william.algorithm.util.ArrayUtils;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class TestSorter {
     @Test
     public void testSorter() {
-        Sorter sorter = new MergeSorter();
+        Sorter sorter = new QuickSorter();
         int[] arr = ArrayUtils.generateRandomArray(10, 1, 100);
         sorter.sort(arr);
         System.err.println(Arrays.toString(arr));

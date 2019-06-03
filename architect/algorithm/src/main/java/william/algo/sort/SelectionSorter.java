@@ -1,4 +1,4 @@
-package william.algo;
+package william.algo.sort;
 
 import william.algorithm.util.ArrayUtils;
 
@@ -10,8 +10,8 @@ import william.algorithm.util.ArrayUtils;
 public class SelectionSorter implements Sorter {
     @Override
     public void sort(int[] arr) {
+        //[0,i]已经有序
         for (int i = 0, len = arr.length; i < len; i++) {
-            //[0,i]已经有序
             int minIdx = i;
             for (int j = i + 1; j < len; j++) {
                 if (arr[j] < arr[minIdx]){
