@@ -3,8 +3,8 @@
 27. Remove Element      ✅
 66. Plus One ✅
 80 Remove Duplicates from Sorted Array II
-167 Two Sum II - Input array is sorted
-189. Rotate Array
+167 Two Sum II - Input array is sorted ✅
+189. Rotate Array ✅
 283. Move Zeroes
 414. Third Maximum Number
 941. Valid Mountain Array
