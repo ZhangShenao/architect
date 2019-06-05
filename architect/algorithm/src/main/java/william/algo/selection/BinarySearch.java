@@ -8,7 +8,7 @@ import java.util.Arrays;
  * @Date: 2019/6/4 11:49
  * @Description:二分查找
  */
-public class BinarySelection {
+public class BinarySearch {
     public static int binarySelection(int[] arr, int target) {
         return binarySelectionRecursive(arr, target, 0, arr.length - 1);
     }
