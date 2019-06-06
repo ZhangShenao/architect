@@ -10,14 +10,21 @@ import org.junit.Test;
 public class TestBinaryTree {
     @Test
     public void testPrint() {
-        BinaryTree tree = BinaryTree.fromStr("[4,2,7,1,3]");
+        BinaryTree tree = BinaryTree.fromStr("[4,2,7,1,3,5]");
         tree.print();
     }
 
     @Test
     public void testPreOrder(){
-        BinaryTree tree = BinaryTree.fromStr("[4,2,7,1,3]");
+        BinaryTree tree = BinaryTree.fromStr("[4,2,7,1,3,5,10]");
         tree.print();
         tree.preOrderRecursive();
+    }
+
+    @Test
+    public void testLevelOrder(){
+        BinaryTree tree = BinaryTree.fromStr("[4,2,7,1,3,5,10]");
+        tree.print();
+        tree.levelOrder();
     }
 }

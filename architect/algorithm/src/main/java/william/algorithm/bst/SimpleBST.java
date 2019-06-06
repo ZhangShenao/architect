@@ -229,11 +229,11 @@ public class SimpleBST {
         /*System.err.println("Max Value: " + bst.getMaxValue());
         System.err.println("Min Value: " + bst.getMinValue());
         System.err.println("Delete Max: ");
-        bst.deleteMax();
+        bst.removeMax();
         bst.inOrder();
         System.err.println();
         System.err.println("Delete Min: ");
-        bst.deleteMin();
+        bst.removeMin();
         bst.inOrder();
         System.err.println();*/
         System.err.println("Delete Key: " + array[5]);

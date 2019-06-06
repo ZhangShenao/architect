@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * @Author: ZhangShenao
  * @Date: 2019/6/5 16:00
- * @Description:二叉树
+ * @Description:二叉树的二叉链表实现
  */
 public class BinaryTree {
     //根节点
@@ -55,6 +55,44 @@ public class BinaryTree {
         result.add(n.data);
         doPreOrderRecursive(n.left,result);
         doPreOrderRecursive(n.right,result);
+    }
+
+    //层序遍历,并每层单独打印一行
+    public void levelOrder(){
+        if (root == null){
+            return;
+        }
+
+        //借助队列
+        Queue<Node> queue = new LinkedList<>();
+
+        //先将根节点入队
+        queue.offer(root);
+        
+        //开始遍历
+        while (!queue.isEmpty()){
+            //记录当前队列中的元素数量,当遍历到指定数量后,打印一个换行
+            int size = queue.size();
+
+            for (int i = 0;i < size;i++){
+                Node node = queue.poll();
+
+                //先遍历当前节点
+                System.err.print(" " + node.data + " ");
+
+                //然后依次将左、右两个子节点入队
+                if (node.left != null){
+                    queue.offer(node.left);
+                }
+
+                if (node.right != null){
+                    queue.offer(node.right);
+                }
+            }
+
+            //打印换行
+            System.err.println();
+        }
     }
 
     public static BinaryTree fromStr(String input) {
@@ -126,6 +164,7 @@ public class BinaryTree {
         printNodeInternal(Collections.singletonList(root), 1, maxLevel);
     }
 
+
     private void printNodeInternal(List<Node> nodes, int level, int maxLevel) {
         if (nodes.isEmpty() || isAllElementsNull(nodes))
             return;
@@ -140,18 +179,18 @@ public class BinaryTree {
         List<Node> newNodes = new ArrayList<>();
         for (Node node : nodes) {
             if (node != null) {
-                System.out.print(node.data);
+                System.err.print(node.data);
                 newNodes.add(node.left);
                 newNodes.add(node.right);
             } else {
                 newNodes.add(null);
                 newNodes.add(null);
-                System.out.print(" ");
+                System.err.print(" ");
             }
 
             printWhitespaces(betweenSpaces);
         }
-        System.out.println("");
+        System.err.println("");
 
         for (int i = 1; i <= endgeLines; i++) {
             for (int j = 0; j < nodes.size(); j++) {
@@ -162,21 +201,21 @@ public class BinaryTree {
                 }
 
                 if (nodes.get(j).left != null)
-                    System.out.print("/");
+                    System.err.print("/");
                 else
                     printWhitespaces(1);
 
                 printWhitespaces(i + i - 1);
 
                 if (nodes.get(j).right != null)
-                    System.out.print("\\");
+                    System.err.print("\\");
                 else
                     printWhitespaces(1);
 
                 printWhitespaces(endgeLines + endgeLines - i);
             }
 
-            System.out.println("");
+            System.err.println("");
         }
 
         printNodeInternal(newNodes, level + 1, maxLevel);
@@ -184,7 +223,7 @@ public class BinaryTree {
 
     private void printWhitespaces(int count) {
         for (int i = 0; i < count; i++)
-            System.out.print(" ");
+            System.err.print(" ");
     }
 
     private int maxLevel(Node node) {
