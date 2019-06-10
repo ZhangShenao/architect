@@ -18,4 +18,12 @@ public class TestSorter {
         sorter.sort(arr);
         System.err.println(Arrays.toString(arr));
     }
+
+    @Test
+    public void testHeapSorter() {
+        Sorter sorter = new HeapSorter();
+        int[] arr = ArrayUtils.generateRandomArray(10, 1, 100);
+        sorter.sort(arr);
+        System.err.println(Arrays.toString(arr));
+    }
 }
