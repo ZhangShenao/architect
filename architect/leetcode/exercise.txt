@@ -6,9 +6,9 @@
 167 Two Sum II - Input array is sorted ✅
 189. Rotate Array ✅
 283. Move Zeroes ✅
-414. Third Maximum Number
-941. Valid Mountain Array
-896. Monotonic Array
+414. Third Maximum Number ✅
+941. Valid Mountain Array ✅
+896. Monotonic Array ✅
 
 链表练习
 19 Remove Nth Node From End of List
