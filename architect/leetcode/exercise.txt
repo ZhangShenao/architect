@@ -24,8 +24,8 @@
 
 栈/队列练习
 155. Min Stack
-20 Valid Parentheses
-150. Evaluate Reverse Polish Notation
+20 Valid Parentheses ✅
+150. Evaluate Reverse Polish Notation ✅
 225 Implement Stack using Queues
 232 Implement Queue using Stacks
 622	Design Circular Queue
