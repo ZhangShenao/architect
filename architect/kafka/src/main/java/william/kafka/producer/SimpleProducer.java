@@ -9,6 +9,7 @@ import william.kafka.constant.KafkaConstants;
 import java.util.Optional;
 import java.util.Properties;
 import static org.apache.kafka.clients.producer.ProducerConfig.*;
+import static william.kafka.constant.KafkaConstants.*;
 
 /**
  * @Auther: ZhangShenao
@@ -45,7 +46,7 @@ public class SimpleProducer {
                 String key = "key-" + i;
                 String value = "value" + i;
                 //Step3:构造待发送的消息对象ProducerRecord,指定要发送到的Topic、Partition、key和value
-                ProducerRecord<String, String> message = new ProducerRecord<>(KafkaConstants.TOPIC_NAME, key, value);
+                ProducerRecord<String, String> message = new ProducerRecord<>(TOPIC_NAME, key, value);
 
                 //Step4:发送消息(异步)
                 producer.send(message, (metadata, exception) -> {
@@ -57,7 +58,7 @@ public class SimpleProducer {
 
                     //可重试异常
                     if (exception instanceof RetriableException) {
-                        //TODO 处理可重试瞬时异常
+                        //TODO 处理可重试瞬时异常RetriableException
                         return;
                     }
 
@@ -66,8 +67,8 @@ public class SimpleProducer {
                 });
 
                 //Step4:发送消息(同步)
-                RecordMetadata metadata = producer.send(message).get();
-                System.err.println(String.format("Send Message Result——topic:%s,partition:%s,offset:%s", metadata.topic(), metadata.partition(), metadata.offset()));
+//                RecordMetadata metadata = producer.send(message).get();
+//                System.err.println(String.format("Send Message Result——topic:%s,partition:%s,offset:%s", metadata.topic(), metadata.partition(), metadata.offset()));
             }
         } catch (Exception e) {
             e.printStackTrace();

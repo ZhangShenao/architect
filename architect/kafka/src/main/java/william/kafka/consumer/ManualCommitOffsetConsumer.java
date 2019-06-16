@@ -5,6 +5,8 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import william.kafka.constant.KafkaConstants;
+
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +26,7 @@ public class ManualCommitOffsetConsumer {
         props.put(BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(GROUP_ID_CONFIG, KafkaConstants.CONSUMER_GROUP);
+        props.put(GROUP_ID_CONFIG, KafkaConstants.CONSUMER_GROUP_1);
 
         //关闭位移自动提交,使用手动提交
         props.put(ENABLE_AUTO_COMMIT_CONFIG,"false");
@@ -32,10 +34,11 @@ public class ManualCommitOffsetConsumer {
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Arrays.asList(KafkaConstants.TOPIC_NAME));
 
+        //缓冲一批消息
         List<ConsumerRecord<String, String>> buffers = new LinkedList<>();
         try {
             while (true) {
-                ConsumerRecords<String, String> messages = consumer.poll(1000L);    //指定拉取消息的超时
+                ConsumerRecords<String, String> messages = consumer.poll(Duration.ofSeconds(1L));    //指定拉取消息的超时
                 for (ConsumerRecord<String,String> message : messages){
                     buffers.add(message);
                 }

@@ -15,8 +15,8 @@ public class UserSerializer implements Serializer<User>{
 
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {
+        //创建序列化所必要的资源
         objectMapper = new ObjectMapper();
-        //TODO 创建序列化所必要的资源
     }
 
     @Override
@@ -30,7 +30,7 @@ public class UserSerializer implements Serializer<User>{
 
     @Override
     public void close() {
-        //TODO 资源释放
-
+        //资源释放
+        objectMapper = null;
     }
 }
