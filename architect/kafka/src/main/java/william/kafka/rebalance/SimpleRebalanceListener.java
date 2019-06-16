@@ -14,10 +14,12 @@ public class SimpleRebalanceListener implements ConsumerRebalanceListener{
     @Override
     public void onPartitionsRevoked(Collection<TopicPartition> partitions) {
         //当开启新一轮Rebalance前调用
+        System.err.println("开启新一轮Rebalance");
     }
 
     @Override
     public void onPartitionsAssigned(Collection<TopicPartition> partitions) {
         //当Rebalance完成后调用
+        System.err.println("新一轮Rebalance结束");
     }
 }
