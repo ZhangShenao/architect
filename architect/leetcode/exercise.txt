@@ -50,11 +50,11 @@
 18. 4Sum
 344. Reverse String ✅
 345. Reverse Vowels of a String ✅
-3. Longest Substring Without Repeating Characters
+3. Longest Substring Without Repeating Characters ✅
 159. Longest Substring with At Most Two Distinct Characters
 
 哈希表
-35 Search Insert Position
+35 Search Insert Position ✅
 33. Search in Rotated Sorted Array
 81 Search in Rotated Sorted Array II
 34  Find First and Last Position of Element in Sorted Array
