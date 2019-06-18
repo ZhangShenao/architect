@@ -1,37 +1,28 @@
 package william.spring.bean;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @Author: ZhangShenao
  * @Date: 2019/6/18 13:32
  * @Description:
  */
+@Getter
+@Setter
 public class Zoo {
     private Cat cat;
     private Dog dog;
     private Monkey monkey;
 
-    public Cat getCat() {
-        return cat;
-    }
-
-    public void setCat(Cat cat) {
-        this.cat = cat;
-    }
-
-    public Dog getDog() {
-        return dog;
-    }
-
-    public void setDog(Dog dog) {
+    public Zoo(Dog dog, Monkey monkey) {
         this.dog = dog;
-    }
-
-    public Monkey getMonkey() {
-        return monkey;
-    }
-
-    public void setMonkey(Monkey monkey) {
         this.monkey = monkey;
+    }
+
+    public Zoo(Cat cat, Dog dog) {
+        this.cat = cat;
+        this.dog = dog;
     }
 
     @Override
