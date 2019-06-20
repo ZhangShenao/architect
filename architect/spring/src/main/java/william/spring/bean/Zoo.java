@@ -15,15 +15,25 @@ public class Zoo {
     private Dog dog;
     private Monkey monkey;
 
-    public Zoo(Dog dog, Monkey monkey) {
-        this.dog = dog;
-        this.monkey = monkey;
-    }
-
     public Zoo(Cat cat, Dog dog) {
         this.cat = cat;
         this.dog = dog;
+        System.err.println("Zoo(Cat cat, Dog dog)");
     }
+
+    public Zoo(Dog dog, Monkey monkey) {
+        this.dog = dog;
+        this.monkey = monkey;
+        System.err.println("Zoo(Dog dog, Monkey monkey)");
+    }
+
+    /*public Zoo(Cat cat, Dog dog, Monkey monkey) {
+        this.cat = cat;
+        this.dog = dog;
+        this.monkey = monkey;
+        System.err.println("Zoo(Cat cat, Dog dog, Monkey monkey)");
+    }
+*/
 
     @Override
     public String toString() {
