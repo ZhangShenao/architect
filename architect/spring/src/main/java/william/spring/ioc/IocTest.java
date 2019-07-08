@@ -10,8 +10,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class IocTest {
     @Test
-    public void testConfiguration(){
+    public void testConfiguration() {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig.class);
-        Group group = applicationContext.getBean("group",Group.class);
+        Group group = applicationContext.getBean(Group.class);
     }
 }

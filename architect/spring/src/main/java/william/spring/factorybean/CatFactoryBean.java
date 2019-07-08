@@ -7,7 +7,7 @@ import org.springframework.beans.factory.FactoryBean;
  * @Date: 2018/12/4 11:41
  * @Description:
  */
-public class SimpleFactoryBean implements FactoryBean<Cat>{
+public class CatFactoryBean implements FactoryBean<Cat>{
     @Override
     public Cat getObject() {
         return new Cat();

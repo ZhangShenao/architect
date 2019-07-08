@@ -22,7 +22,7 @@ public class Solution7 {
         x = Math.abs(x);
 
         //从x的最低位开始处理
-        int result = 0;
+        long result = 0;
         while (x >= 10) {
             int low = x % 10;
 
@@ -40,15 +40,12 @@ public class Solution7 {
             result = result * 10 + x;
         }
 
-        result = positive ? result : -result;
         //处理溢出的情况
-        if (positive && result < 0) {
+        if (result > Integer.MAX_VALUE || result < Integer.MIN_VALUE){
             return 0;
         }
 
-        if (!positive && result > 0) {
-            return 0;
-        }
-        return result;
+        result = positive ? result : -result;
+        return (int)result;
     }
 }
