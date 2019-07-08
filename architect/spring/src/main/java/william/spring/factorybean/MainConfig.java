@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class MainConfig {
-    @Bean(initMethod = "init",destroyMethod = "destroy")
-    public SimpleFactoryBean simpleFactoryBean(){
-        return new SimpleFactoryBean();
+    @Bean(name = "cat")
+    public CatFactoryBean simpleFactoryBean(){
+        return new CatFactoryBean();
     }
 }

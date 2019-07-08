@@ -19,7 +19,7 @@ public class Solution27 {
         int count = 0;
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] != val) {
-                ++count;
+                nums[count++] = nums[i];
             }
         }
         return count;
