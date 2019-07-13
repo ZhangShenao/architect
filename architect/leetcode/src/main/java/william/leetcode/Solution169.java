@@ -1,5 +1,6 @@
 package william.leetcode;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +17,11 @@ public class Solution169 {
     }
 
     public int majorityElement(int[] nums) {
+        Arrays.sort(nums);
+        return nums[nums.length / 2];
+    }
+
+    /*public int majorityElement(int[] nums) {
         if (nums.length == 1) {
             return nums[0];
         }
@@ -36,6 +42,6 @@ public class Solution169 {
         }
 
         throw new IllegalArgumentException("No majority!!");
-    }
+    }*/
 
 }
