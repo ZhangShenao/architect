@@ -37,6 +37,7 @@ public class UserMapperTest {
     @Test
     public void testListByAge(){
         List<UserEntity> entities = userMapper.listByAge(34);
+        List<UserEntity> entities2 = userMapper.listByAge(34);
         Optional.ofNullable(entities).orElse(Collections.emptyList()).forEach(System.err::println);
     }
 }
