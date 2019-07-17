@@ -3,6 +3,7 @@ package william.springboot.service.impl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import william.springboot.dto.UserDto;
 import william.springboot.entity.UserEntity;
 import william.springboot.mapper.UserMapper;
@@ -40,6 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public List<UserDto> listAll() {
         List<UserEntity> entities = userMapper.selectAll();
         return Optional
