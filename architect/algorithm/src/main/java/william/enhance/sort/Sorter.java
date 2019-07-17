@@ -7,4 +7,6 @@ package william.enhance.sort;
  */
 public interface Sorter<T extends Comparable<T>> {
     void sort(T[] arr);
+
+    String name();
 }
