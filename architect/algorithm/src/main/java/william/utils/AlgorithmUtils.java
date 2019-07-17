@@ -29,6 +29,24 @@ public class AlgorithmUtils {
     }
 
     /**
+     * 生成近乎有序的数组
+     */
+    public static Integer[] genNearlyOrderedArray(int size, int swapTimes) {
+        Integer[] arr = new Integer[size];
+        for (int i = 0; i < size; i++) {
+            arr[i] = i;
+        }
+
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        for (int i = 0; i < swapTimes; i++) {
+            int x = random.nextInt(0, size);
+            int y = random.nextInt(0, size);
+            swap(arr, x, y);
+        }
+        return arr;
+    }
+
+    /**
      * 交换数组中的两个元素
      */
     public static <T> void swap(T[] arr, int i, int j) {
@@ -49,13 +67,14 @@ public class AlgorithmUtils {
      */
     public static <T extends Comparable<T>> void sortBenchmark(Class<? extends Sorter> sorterClass, T[] arr) {
         try {
-            print("排序前", arr);
             Sorter sorter = sorterClass.newInstance();
-            long startTime = System.nanoTime();
+            long startTime = System.currentTimeMillis();
             sorter.sort(arr);
-            print("排序后", arr);
-            System.err.println("是否升序: " + isSortedAsc(arr));
-            System.err.println("耗时: " + (System.nanoTime() - startTime));
+            long endTime = System.currentTimeMillis();
+            if (!isSortedAsc(arr)) {
+                throw new IllegalStateException("排序失败!!");
+            }
+            System.err.println(sorter.name() + "耗时: " + (endTime - startTime) + "ms");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,5 +90,12 @@ public class AlgorithmUtils {
             }
         }
         return true;
+    }
+
+    /**
+     * 判断一个数组是否有序
+     */
+    public static <T> T[] copyArray(T[] arr) {
+        return Arrays.copyOf(arr, arr.length);
     }
 }

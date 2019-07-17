@@ -26,8 +26,15 @@ public class SelectionSorter<T extends Comparable<T>> implements Sorter<T> {
         }
     }
 
+    @Override
+    public String name() {
+        return "选择排序";
+    }
+
     public static void main(String[] args) {
         Integer[] arr = AlgorithmUtils.genRandomArray(20, -100, 100);
-        AlgorithmUtils.sortBenchmark(SelectionSorter.class,arr);
+        Integer[] arr1 = AlgorithmUtils.copyArray(arr);
+        AlgorithmUtils.sortBenchmark(SelectionSorter.class, arr1);
+        AlgorithmUtils.sortBenchmark(BasicInsertionSorter.class, arr);
     }
 }
