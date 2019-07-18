@@ -72,7 +72,7 @@ public class AlgorithmUtils {
             sorter.sort(arr);
             long endTime = System.currentTimeMillis();
             if (!isSortedAsc(arr)) {
-                throw new IllegalStateException("排序失败!!");
+                throw new IllegalStateException(sorter.name() + "排序失败!!");
             }
             System.err.println(sorter.name() + "耗时: " + (endTime - startTime) + "ms");
         } catch (Exception e) {
