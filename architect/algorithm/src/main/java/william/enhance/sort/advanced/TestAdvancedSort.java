@@ -15,10 +15,16 @@ public class TestAdvancedSort {
         Integer[] arr2 = AlgorithmUtils.copyArray(arr1);
         Integer[] arr3 = AlgorithmUtils.copyArray(arr1);
         Integer[] arr4 = AlgorithmUtils.copyArray(arr1);
+        Integer[] arr5 = AlgorithmUtils.copyArray(arr1);
+        Integer[] arr6 = AlgorithmUtils.copyArray(arr1);
+        Integer[] arr7 = AlgorithmUtils.copyArray(arr1);
         AlgorithmUtils.sortBenchmark(OptimizedMergeSort.class, arr1);
         AlgorithmUtils.sortBenchmark(OptimizedSingleRouteQuickSorter.class, arr2);
         AlgorithmUtils.sortBenchmark(DoubleRouteQuickSorter.class, arr3);
         AlgorithmUtils.sortBenchmark(ThreeRouteQuickSorter.class, arr4);
+        AlgorithmUtils.sortBenchmark(BasicHeapSorter.class, arr5);
+        AlgorithmUtils.sortBenchmark(OptimizedHeapSorter.class, arr6);
+        AlgorithmUtils.sortBenchmark(InPlaceHeapSorter.class, arr7);
 
         System.err.println("-----------------------------------");
 
@@ -28,10 +34,16 @@ public class TestAdvancedSort {
         arr2 = AlgorithmUtils.copyArray(arr1);
         arr3 = AlgorithmUtils.copyArray(arr1);
         arr4 = AlgorithmUtils.copyArray(arr1);
+        arr5 = AlgorithmUtils.copyArray(arr1);
+        arr6 = AlgorithmUtils.copyArray(arr1);
+        arr7 = AlgorithmUtils.copyArray(arr1);
         AlgorithmUtils.sortBenchmark(OptimizedMergeSort.class, arr1);
         AlgorithmUtils.sortBenchmark(OptimizedSingleRouteQuickSorter.class, arr2);
         AlgorithmUtils.sortBenchmark(DoubleRouteQuickSorter.class, arr3);
         AlgorithmUtils.sortBenchmark(ThreeRouteQuickSorter.class, arr4);
+        AlgorithmUtils.sortBenchmark(BasicHeapSorter.class, arr5);
+        AlgorithmUtils.sortBenchmark(OptimizedHeapSorter.class, arr6);
+        AlgorithmUtils.sortBenchmark(InPlaceHeapSorter.class, arr7);
 
         System.err.println("-----------------------------------");
 
@@ -41,10 +53,16 @@ public class TestAdvancedSort {
         arr2 = AlgorithmUtils.copyArray(arr1);
         arr3 = AlgorithmUtils.copyArray(arr1);
         arr4 = AlgorithmUtils.copyArray(arr1);
+        arr5 = AlgorithmUtils.copyArray(arr1);
+        arr6 = AlgorithmUtils.copyArray(arr1);
+        arr7 = AlgorithmUtils.copyArray(arr1);
         AlgorithmUtils.sortBenchmark(OptimizedMergeSort.class, arr1);
         AlgorithmUtils.sortBenchmark(OptimizedSingleRouteQuickSorter.class, arr2);
         AlgorithmUtils.sortBenchmark(DoubleRouteQuickSorter.class, arr3);
         AlgorithmUtils.sortBenchmark(ThreeRouteQuickSorter.class, arr4);
+        AlgorithmUtils.sortBenchmark(BasicHeapSorter.class, arr5);
+        AlgorithmUtils.sortBenchmark(OptimizedHeapSorter.class, arr6);
+        AlgorithmUtils.sortBenchmark(InPlaceHeapSorter.class, arr7);
 
         System.err.println("-----------------------------------");
     }
