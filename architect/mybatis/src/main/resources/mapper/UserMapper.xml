@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="william.mybatis.quickstart.mapper.UserMapper">
     <!--开启二级缓存配置-->
-    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" blocking="false"/>
+    <cache eviction="FIFO" flushInterval="60000" capacity="512" readOnly="true" blocking="false"/>
 
     <!--结果集映射-->
 	<resultMap id="UserEntityResultMap" type="UserEntity">
