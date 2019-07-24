@@ -9,7 +9,7 @@ import java.util.List;
  * @Date: 2019/7/24 21:56
  * @Description:稠密带权图——使用邻接矩阵实现
  */
-public class DenseWeightedGraph<Weight extends Comparable<Weight>> implements WeightedGraph {
+public class DenseWeightedGraph<Weight extends Number & Comparable<Weight>> implements WeightedGraph {
     private int V;
     private int E;
     private boolean directed;
@@ -41,10 +41,13 @@ public class DenseWeightedGraph<Weight extends Comparable<Weight>> implements We
 
     @Override
     public void addEdge(Edge edge) {
+        //不允许重复添加边
         if (hasEdge(edge.v(), edge.w())) {
             return;
         }
         adj[edge.v()][edge.w()] = new Edge<Weight>(edge);
+
+        //处理无向图的边
         if (edge.v() != edge.w() && !directed) {
             adj[edge.w()][edge.v()] = new Edge(edge.w(), edge.v(), edge.weight());
         }
@@ -59,7 +62,15 @@ public class DenseWeightedGraph<Weight extends Comparable<Weight>> implements We
 
     @Override
     public void print() {
-
+        for (int i = 0; i < V; i++) {
+            for (int j = 0; j < V; j++)
+                if (adj[i][j] != null) {
+                    System.err.print(adj[i][j].weight() + "\t");
+                } else {
+                    System.err.print("NULL\t");
+                }
+            System.err.println();
+        }
     }
 
     @Override

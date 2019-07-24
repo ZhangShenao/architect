@@ -5,7 +5,7 @@ package william.enhance.mst;
  * @Date: 2019/7/24 21:42
  * @Description:带权图的边
  */
-public class Edge<Weight extends Comparable<Weight>> implements Comparable<Edge<Weight>> {
+public class Edge<Weight extends Number & Comparable<Weight>> implements Comparable<Edge<Weight>> {
     //两端顶点
     private int v;
     private int w;
