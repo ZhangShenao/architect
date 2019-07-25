@@ -7,14 +7,14 @@ import java.util.List;
  * @Date: 2019/7/24 21:54
  * @Description:带权图 ADT
  */
-public interface WeightedGraph<Weight extends Comparable<Weight>> {
+public interface WeightedGraph<Weight extends Number & Comparable<Weight>> {
     int V();
 
     int E();
 
     void addEdge(Edge<Weight> edge);
 
-    boolean hasEdge(int v,int w);
+    boolean hasEdge(int v, int w);
 
     void print();
 
