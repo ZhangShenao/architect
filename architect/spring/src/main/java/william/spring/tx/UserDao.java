@@ -1,9 +1,6 @@
 package william.spring.tx;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
-import william.mybatis.annotation.AutoResult;
-import william.spring.tx.entity.UserEntity;
 
 /**
  * @Auther: ZhangShenao
@@ -11,7 +8,7 @@ import william.spring.tx.entity.UserEntity;
  * @Description:
  */
 @Component
-@AutoResult(UserEntity.class)
-@Mapper
+//@AutoResult(UserEntity.class)
+//@Mapper
 public interface UserDao {
 }

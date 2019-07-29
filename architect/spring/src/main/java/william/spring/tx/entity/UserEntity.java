@@ -3,7 +3,6 @@ package william.spring.tx.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import william.mybatis.sql.generator.IEntity;
 
 /**
  * @Auther: ZhangShenao
@@ -13,7 +12,7 @@ import william.mybatis.sql.generator.IEntity;
 @Getter
 @Setter
 @ToString
-public class UserEntity implements IEntity{
+public class UserEntity /*implements IEntity*/{
     private static final String TABLE_NAME = "t_user";
     private static final String KEY_PROPERTY = "id";
 
@@ -26,7 +25,7 @@ public class UserEntity implements IEntity{
     private String note;
     private long positionId;
 
-    @Override
+    /*@Override
     public String tableName() {
         return TABLE_NAME;
     }
@@ -34,5 +33,5 @@ public class UserEntity implements IEntity{
     @Override
     public String keyProperty() {
         return KEY_PROPERTY;
-    }
+    }*/
 }
