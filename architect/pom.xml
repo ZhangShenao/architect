@@ -27,6 +27,7 @@
         <module>design-pattern</module>
         <module>basic</module>
         <module>design-pattern</module>
+        <module>mysql</module>
     </modules>
     <packaging>pom</packaging>
 
