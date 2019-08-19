@@ -28,6 +28,7 @@
         <module>basic</module>
         <module>design-pattern</module>
         <module>mysql</module>
+        <module>effective-java</module>
     </modules>
     <packaging>pom</packaging>
 
