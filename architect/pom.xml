@@ -29,6 +29,7 @@
         <module>design-pattern</module>
         <module>mysql</module>
         <module>effective-java</module>
+        <module>grpc</module>
     </modules>
     <packaging>pom</packaging>
 
