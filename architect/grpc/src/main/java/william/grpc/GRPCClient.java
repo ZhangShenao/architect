@@ -5,8 +5,8 @@ import java.util.concurrent.TimeUnit;
 import io.grpc.ManagedChannel;
 import io.grpc.netty.NettyChannelBuilder;
 import william.grpc.protos.GreeterGrpc;
-import william.grpc.protos.Greeting.HelloReply;
-import william.grpc.protos.Greeting.HelloRequest;
+import william.grpc.protos.GreeterOuterClass.HelloReply;
+import william.grpc.protos.GreeterOuterClass.HelloRequest;
 
 /**
  * @author zhangshenao
