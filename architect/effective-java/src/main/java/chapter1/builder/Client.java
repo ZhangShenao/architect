@@ -37,7 +37,7 @@ public class Client {
 
         Calzone calzone = new Calzone.Builder()
                 .addTopping(HAM)
-                .saucelnside()
+                .sauceInside()
                 .build();
 
         Assert.assertNotNull(nyPizza);

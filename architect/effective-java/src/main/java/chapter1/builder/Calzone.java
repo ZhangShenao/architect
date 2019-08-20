@@ -5,12 +5,12 @@ package chapter1.builder;
  * Created on 2019-08-20
  */
 public class Calzone extends Pizza {
-    private final boolean saucelnside;
+    private final boolean sauceInside;
 
     public static class Builder extends Pizza.Builder<Builder> {
         private boolean sauceInside = false; // Default
 
-        public Builder saucelnside() {
+        public Builder sauceInside() {
             sauceInside = true;
             return this;
         }
@@ -29,7 +29,7 @@ public class Calzone extends Pizza {
 
     public Calzone(Builder builder) {
         super(builder);
-        this.saucelnside = builder.sauceInside;
+        this.sauceInside = builder.sauceInside;
     }
 
 
