@@ -1,7 +1,7 @@
 package chapter1;
 
 /**
- * @Author zhangshenao \
+ * @Author zhangshenao
  * @Date 2019-08-21
  * @Description 工具类——通过私有构造器禁止实例化
  */
