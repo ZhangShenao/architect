@@ -9,7 +9,7 @@ import java.util.Arrays;
 /**
  * @Auther: ZhangShenao
  * @Date: 2018/11/16 23:17
- * @Description:
+ * @Description: 打印当前JVM线程堆栈
  */
 public class ShowThread {
     public static void main(String[] args) {
