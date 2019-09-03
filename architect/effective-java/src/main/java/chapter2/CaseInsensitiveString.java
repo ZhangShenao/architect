@@ -1,7 +1,7 @@
 package chapter2;
 
 /**
- * @Author zhangshenao <zhangshenao@kuaishou.com>
+ * @Author zhangshenao
  * @Date 2019-08-27
  * @Description
  */
