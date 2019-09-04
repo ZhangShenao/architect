@@ -25,7 +25,7 @@ public class ScheduledCache<K, V> {
     }
 
     public void put(K key, V value, long timeout) {
-        CacheItem item = new CacheItem();
+        CacheItem<K,V> item = new CacheItem<>();
         item.setKey(key);
         item.setValue(value);
         item.setExpireTimeMillis(System.currentTimeMillis() + timeout);
