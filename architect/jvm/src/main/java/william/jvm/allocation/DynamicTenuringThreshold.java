@@ -13,7 +13,7 @@ import static william.jvm.allocation.EdenAllocation._1MB;
  */
 public class DynamicTenuringThreshold {
     public static void main(String[] args) {
-        byte[] allocation1,allocation2,allocation3,allocation4;
+        byte[] allocation1,allocation2,allocation3, allocation4;
 
         allocation1 = new byte[_1MB / 4];
         //allocation1+allocation2的空间大于Survivor区的一半
