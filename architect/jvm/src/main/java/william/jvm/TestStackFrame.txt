@@ -2,7 +2,7 @@ Classfile /Users/yufeifei/Desktop/GitResp/architect/architect/jvm/target/classes
   Last modified 2019年9月7日; size 572 bytes
   MD5 checksum 454204bdd3601a1294c5a6a66878598e
   Compiled from "TestStackFrame.java"
-public class william.jvm.TestStackFrame
+public class william.jvm.area.TestStackFrame
   minor version: 0
   major version: 52
   flags: (0x0021) ACC_PUBLIC, ACC_SUPER
@@ -38,7 +38,7 @@ Constant pool:
   #26 = NameAndType        #13:#14        // earn:(I)V
   #27 = Utf8               java/lang/Object
 {
-  public william.jvm.TestStackFrame();
+  public william.jvm.area.TestStackFrame();
     descriptor: ()V
     flags: (0x0001) ACC_PUBLIC
     Code:
