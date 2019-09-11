@@ -30,6 +30,7 @@
         <module>effective-java</module>
         <module>grpc</module>
         <module>jvm</module>
+        <module>nginx</module>
     </modules>
     <packaging>pom</packaging>
 
