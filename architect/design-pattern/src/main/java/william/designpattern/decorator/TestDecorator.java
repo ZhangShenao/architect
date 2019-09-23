@@ -16,7 +16,5 @@ public class TestDecorator {
         pancake = new EggDecorator(pancake);
         pancake = new SausageDecorator(pancake);
         System.err.println("原料: " + pancake.material() + " 价格: " + pancake.price());
-
-
     }
 }
