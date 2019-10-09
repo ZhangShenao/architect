@@ -1,9 +1,10 @@
 package william.netty.heartbeat;
 
+import java.util.Optional;
+
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
-import java.util.Optional;
 
 /**
  * @Auther: ZhangShenao
@@ -32,7 +33,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
                 eventMsg = "读/写空闲";
                 break;
         }
-        Optional.ofNullable(eventMsg).ifPresent(msg -> System.err.println(ctx.channel().remoteAddress() + ": " + msg));
+        Optional.of(eventMsg).ifPresent(msg -> System.err.println(ctx.channel().remoteAddress() + ": " + msg));
         ctx.channel().close();
     }
 }

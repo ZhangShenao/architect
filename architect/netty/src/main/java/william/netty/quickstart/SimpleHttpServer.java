@@ -12,11 +12,12 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  * @Description:使用Netty实现的简单的Http服务器
  */
 public class SimpleHttpServer {
-    public static void main(String[] args) throws Exception {
-        //Boss线程组，只负责接收客户端连接，具体的逻辑分发给workerGroup处理
+    public static void main(String[] args) {
+        //创建2个线程组
+        //Boss线程组:只负责接收客户端连接,具体的逻辑分发给workerGroup处理
         EventLoopGroup bossGroup = new NioEventLoopGroup();
 
-        //Worker线程组，负责实际处理客户端连接
+        //Worker线程组:负责实际处理客户端连接
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
         try {
@@ -26,12 +27,14 @@ public class SimpleHttpServer {
                     .group(bossGroup, workerGroup)
                     //设置Channel类型
                     .channel(NioServerSocketChannel.class)
-                    //设置自定义Initializer，通过Initializer添加自定义处理器
+                    //设置自定义Initializer,通过Initializer添加自定义处理器
                     .childHandler(new SimpleHttpServerInitializer());
 
-            //绑定指定端口
+            //服务器启动,并绑定指定端口
             ChannelFuture future = serverBootstrap.bind(8080).sync();
+            System.err.println("SimpleHttpServer Start");
 
+            //注册服务器关闭监听,等待服务器关闭
             future.channel().closeFuture().sync();
         } catch (Exception e) {
             e.printStackTrace();

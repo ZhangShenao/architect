@@ -12,8 +12,10 @@ import io.netty.handler.codec.http.HttpServerCodec;
  */
 public class SimpleHttpServerInitializer extends ChannelInitializer<SocketChannel>{
     @Override
-    protected void initChannel(SocketChannel socketChannel) throws Exception {
+    protected void initChannel(SocketChannel socketChannel) {
+        //获取Pipeline
         ChannelPipeline pipeline = socketChannel.pipeline();
+
         //向Pipeline添加Http服务端编解码器
         pipeline.addLast("httpServerCodeC",new HttpServerCodec());
 
