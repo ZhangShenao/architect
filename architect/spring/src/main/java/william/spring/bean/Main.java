@@ -9,12 +9,16 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class Main {
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig.class);
-        B b1 = applicationContext.getBean(B.class);
+        AnnotationConfigApplicationContext applicationContext =
+                new AnnotationConfigApplicationContext(MainConfig.class);
+       /* B b1 = applicationContext.getBean(B.class);
         System.err.println(b1.getA());
         B b2 = applicationContext.getBean(B.class);
         System.err.println(b2.getA());
         A a = applicationContext.getBean(A.class);
-        System.err.println(a);
+        System.err.println(a);*/
+
+        Person p = applicationContext.getBean("person", Person.class);
+        System.err.println(p);
     }
 }

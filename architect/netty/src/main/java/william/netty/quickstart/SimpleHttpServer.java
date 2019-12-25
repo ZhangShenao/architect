@@ -1,10 +1,7 @@
 package william.netty.quickstart;
 
-import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @Auther: ZhangShenao
@@ -13,7 +10,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  */
 public class SimpleHttpServer {
     public static void main(String[] args) {
-        //创建2个线程组
+        /*//创建2个线程组
         //Boss线程组:只负责接收客户端连接,具体的逻辑分发给workerGroup处理
         EventLoopGroup bossGroup = new NioEventLoopGroup();
 
@@ -42,6 +39,21 @@ public class SimpleHttpServer {
             //优雅地关闭线程组
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
-        }
+        }*/
+
+        Set<Integer> s1 = new HashSet<>();
+        s1.add(1);
+        s1.add(2);
+        s1.add(3);
+        s1.add(4);
+        s1.add(5);
+
+        Set<Integer> s2 = new HashSet<>();
+        s2.add(2);
+        s2.add(4);
+        s2.add(6);
+
+        System.err.println(s1.retainAll(s2));
+        System.err.println(s1);
     }
 }
