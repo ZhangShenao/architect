@@ -2,9 +2,6 @@ package william.spring.autowire;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import william.spring.bean.Cat;
-import william.spring.bean.Dog;
-import william.spring.bean.Monkey;
 
 /**
  * @Author: ZhangShenao
@@ -13,18 +10,22 @@ import william.spring.bean.Monkey;
  */
 @Configuration
 public class MainConfig {
-    @Bean
-    public Cat cat() {
-        return new Cat();
+    @Bean("userService")
+    public UserService userService() {
+        return new UserService();
     }
 
-    @Bean
-    public Dog dog() {
-        return new Dog();
+    @Bean("userDao1")
+    public UserDao userDao1() {
+        UserDao dao = new UserDao();
+        dao.setNum(1);
+        return dao;
     }
 
-    @Bean
-    public Monkey monkey() {
-        return new Monkey();
+    @Bean("userDao2")
+    public UserDao userDao2() {
+        UserDao dao = new UserDao();
+        dao.setNum(2);
+        return dao;
     }
 }
