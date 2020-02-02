@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+  redis:
+    database: 0
+    sentinel:    #哨兵模式
+      master: mymaster #主服务器所在集群名称
+      nodes: 127.0.0.1:26379  #哨兵节点
+    lettuce:
+      pool:
+        max-idle: 50
+        min-idle: 10
+        max-active: 100
+
