@@ -8,8 +8,8 @@ spring:
       master: mymaster #主服务器所在集群名称
       nodes: 127.0.0.1:26379  #哨兵节点
     lettuce:
-      pool:
-        max-idle: 50
-        min-idle: 10
-        max-active: 100
+      pool:  #Redis连接池配置
+        max-idle: 50    #最大空闲连接数
+        min-idle: 10    #最小空闲连接数
+        max-active: 100 #最大连接数
 
