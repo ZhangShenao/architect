@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: 7e70a4f2-f9e3-42ea-b5ac-5921fe06a1d3  #设置服务命名空间,用于环境隔离
+  application:
+    name: product-service
+
+server:
+  port: 8001
+
