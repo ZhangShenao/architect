@@ -40,10 +40,9 @@ public class OrderController {
             return OrderVO.empty();
         }
 
-        ServiceInstance instance = serviceInstances.get(0);
-        String uri = instance.getUri().toString();
-
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity(uri + "/product/queryName", String.class);
+        //使用Ribbon负载均衡机制,基于服务名直接调用
+        ResponseEntity<String> responseEntity =
+                restTemplate.getForEntity("http://product-service/product/queryName", String.class);
         String productName = responseEntity.getBody();
         if (StringUtils.isEmpty(productName)) {
             return OrderVO.empty();

@@ -17,9 +17,16 @@
     </modules>
 
     <dependencies>
+        <!--Nacos 依赖-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+        <!--Ribbon依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
         </dependency>
 
     </dependencies>
