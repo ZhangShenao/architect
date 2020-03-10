@@ -9,7 +9,7 @@ package william.designpattern.decorator;
  * <p>
  * 适用场景:动态扩展一个类的功能
  */
-public class TestDecorator {
+public class Client {
     public static void main(String[] args) {
         Pancake pancake = new PurePancake();
         pancake = new EggDecorator(pancake);
