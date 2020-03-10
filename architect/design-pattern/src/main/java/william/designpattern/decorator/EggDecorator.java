@@ -5,7 +5,7 @@ package william.designpattern.decorator;
  * @Date 2019-09-18
  * @Description 加鸡蛋的装饰器
  */
-public class EggDecorator extends PancakeDecoretor {
+public class EggDecorator extends PancakeDecorator {
     public EggDecorator(Pancake pancake) {
         super(pancake);
     }

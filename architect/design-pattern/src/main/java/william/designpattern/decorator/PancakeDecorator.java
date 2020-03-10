@@ -5,10 +5,10 @@ package william.designpattern.decorator;
  * @Date 2019-09-18
  * @Description
  */
-public abstract class PancakeDecoretor implements Pancake {
+public abstract class PancakeDecorator implements Pancake {
     protected Pancake pancake;
 
-    public PancakeDecoretor(Pancake pancake) {
+    public PancakeDecorator(Pancake pancake) {
         this.pancake = pancake;
     }
 }
