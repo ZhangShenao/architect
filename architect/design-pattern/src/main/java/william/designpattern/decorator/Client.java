@@ -11,10 +11,13 @@ package william.designpattern.decorator;
  */
 public class Client {
     public static void main(String[] args) {
-        Pancake pancake = new PurePancake();
+        /*Pancake pancake = new PurePancake();
         pancake = new EggDecorator(pancake);
         pancake = new EggDecorator(pancake);
         pancake = new SausageDecorator(pancake);
-        System.err.println("原料: " + pancake.material() + " 价格: " + pancake.price());
+        System.err.println("原料: " + pancake.material() + " 价格: " + pancake.price());*/
+
+        double result = (13000000 * 0.8D) / (24 * 60 * 60 * 0.2);
+        System.err.println(result);
     }
 }
