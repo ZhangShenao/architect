@@ -11,7 +11,7 @@ import javax.sql.DataSource;
  * 模板方法使得子类可以在不改变算法结构的情况下,重新定义算法的某些步骤。
  * 模板方法属于行为性设计模式。
  */
-public class TestTemplate {
+public class Client {
     public static void main(String[] args) {
         DataSource dataSource = null;
         Optional.ofNullable(dataSource).ifPresent(d -> {
