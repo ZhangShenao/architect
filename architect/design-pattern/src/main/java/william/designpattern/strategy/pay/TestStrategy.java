@@ -1,4 +1,4 @@
-package william.designpattern.strategy;
+package william.designpattern.strategy.pay;
 
 /**
  * @Author zhangshenao
