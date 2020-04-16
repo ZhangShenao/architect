@@ -13,9 +13,12 @@ import lombok.ToString;
 @Data
 @ToString
 public class Person {
-    @Value("${name}")
-    private String name;
+    @Value("${firstName}")
+    private String firstName;
 
-    @Value("${age}")
+    @Value("#{27+1}")
     private int age;
+
+    @Value("${person.lastName}")
+    private String lastName;
 }

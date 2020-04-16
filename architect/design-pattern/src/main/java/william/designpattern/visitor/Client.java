@@ -1,5 +1,8 @@
 package william.designpattern.visitor;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @Author zhangshenao
  * @Date 2020-03-23
@@ -7,4 +10,18 @@ package william.designpattern.visitor;
  * 核心: 将具体的数据结构与作用在其上的操作解耦
  */
 public class Client {
+    public static void main(String[] args) {
+        Map<String, String> map = new HashMap<>();
+        for (int i = 0; i < 100000; i++) {
+            String key = "" + i % 100;
+            String value = "" + i;
+            map.computeIfAbsent(key, s -> {
+                map.put(key, value);
+                return value;
+            });
+        }
+
+        System.err.println(map.size());
+
+    }
 }

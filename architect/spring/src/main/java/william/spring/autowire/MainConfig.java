@@ -2,6 +2,7 @@ package william.spring.autowire;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * @Author: ZhangShenao
@@ -22,6 +23,7 @@ public class MainConfig {
         return dao;
     }
 
+    @Primary
     @Bean("userDao2")
     public UserDao userDao2() {
         UserDao dao = new UserDao();
