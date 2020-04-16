@@ -11,8 +11,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MainConfig {
     //注册BeanFactoryPostProcessor
-    @Bean
-    public MyBeanFactoryPostProcessor myBeanFactoryPostProcessor(){
+    //    @Bean
+    public MyBeanFactoryPostProcessor myBeanFactoryPostProcessor() {
         return new MyBeanFactoryPostProcessor();
+    }
+
+    @Bean
+    public MyBeanDefinitionRegistryPostProcessor myBeanDefinitionRegistryPostProcessor() {
+        return new MyBeanDefinitionRegistryPostProcessor();
     }
 }
