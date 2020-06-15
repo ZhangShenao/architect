@@ -19,7 +19,7 @@ public class App {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(App.class);
         GuavaCacheService service = applicationContext.getBean(GuavaCacheService.class);
 
-        service.put("K1", "V1");
+        //        service.put("K1", "V1");
         service.put("K2", "V2");
         service.put("K3", "V3");
 
@@ -27,7 +27,8 @@ public class App {
         value.ifPresent(System.err::println);
         service.remove("K1");
 
-                service.clear();
+        service.stat();
+        service.clear();
 
     }
 }

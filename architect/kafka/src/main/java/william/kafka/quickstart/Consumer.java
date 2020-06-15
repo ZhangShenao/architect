@@ -1,14 +1,15 @@
 package william.kafka.quickstart;
 
+import java.util.Collections;
+import java.util.Optional;
+import java.util.Properties;
+
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
+
 import william.kafka.constant.KafkaConstants;
-import java.time.Duration;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Properties;
 
 /**
  * @Auther: ZhangShenao
@@ -39,7 +40,9 @@ public class Consumer {
         //拉取消息 Kafka只有拉取消息模式，没有推送模式
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(1000L);
-            Optional.ofNullable(records).orElse(ConsumerRecords.empty()).forEach(record -> System.err.println("接收到消息,key: " + record.key() + ",value: " + record.value() + ",topic: " + record.topic() + ",partition: " + record.partition() + ",offset: " + record.offset()));
+            Optional.ofNullable(records).orElse(ConsumerRecords.empty()).forEach(record -> System.err.println(
+                    "接收到消息, key: " + record.key() + ", value: " + record.value() + ", topic: " + record.topic()
+                            + ", partition: " + record.partition() + ", offset: " + record.offset()));
         }
     }
 }

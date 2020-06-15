@@ -6,7 +6,7 @@ package william.kafka.constant;
  * @Description:
  */
 public interface KafkaConstants {
-    String TOPIC_NAME = "enhance";
+    String TOPIC_NAME = "test";
 
     String CONSUMER_GROUP_1 = "consumer-group-1";
     String CONSUMER_GROUP_2 = "consumer-group-2";

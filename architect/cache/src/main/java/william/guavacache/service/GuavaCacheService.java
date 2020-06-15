@@ -25,11 +25,16 @@ public class GuavaCacheService {
     public void init() {
         //构建缓存
         cache = CacheBuilder.newBuilder()
-                .maximumSize(100L)  //设置缓存最大条目数
-                .expireAfterAccess(10L, TimeUnit.SECONDS)    //设置缓存失效时间(在多久未进行读写操作后失效)
+                .concurrencyLevel(8)    //设置并发级别:并发级别表示的是可以同时写缓存的线程数
+                .expireAfterWrite(10L, TimeUnit.SECONDS)    //设置写缓存后8s过期
+                .initialCapacity(10)    //设置缓存的初始容量
+                .maximumSize(100L)  //设置缓存最大容量。当缓存已满时,会通过LRU算法进行缓存剔除
+                .refreshAfterWrite(30L, TimeUnit.SECONDS)   //开启缓存的定时刷新
+                .recordStats()      //开启缓存命中率统计
                 .removalListener(x -> System.err
-                        .println("Cache Item was Removed! Key: " + x.getKey() + ", Cause: " + x.getCause() + " "))
-                .build(new CacheLoader<String, String>() {      //设置缓存加载机制
+                        .println("Cache Item was Removed! Key: " + x.getKey() + ", Cause: " + x.getCause()
+                                + " "))  //设置缓存移除监听器
+                .build(new CacheLoader<String, String>() {      //指定CacheLoader,当缓存不存在时可以实现缓存的自动加载
                     @Override
                     public String load(String key) {
                         System.err.println("Load Cache, key: " + key);
@@ -67,5 +72,10 @@ public class GuavaCacheService {
     public void clear() {
         System.err.println("Clear Cache");
         cache.invalidateAll();
+    }
+
+    //缓存统计
+    public void stat() {
+        System.err.println("Stat: " + cache.stats().toString());
     }
 }
