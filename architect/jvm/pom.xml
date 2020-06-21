@@ -11,5 +11,13 @@
 
     <artifactId>jvm</artifactId>
 
+    <dependencies>
+        <!-- jol依赖,可以打印对象所占内存空间的大小  -->
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.9</version>
+        </dependency>
+    </dependencies>
 
 </project>
