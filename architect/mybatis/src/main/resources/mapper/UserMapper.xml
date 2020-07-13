@@ -2,20 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="william.mybatis.quickstart.mapper.UserMapper">
     <!--开启二级缓存配置-->
-    <cache eviction="FIFO" flushInterval="60000" capacity="512" readOnly="true" blocking="false"/>
+    <cache eviction="LRU" flushInterval="60000" readOnly="true" blocking="false" size="512"/>
 
     <!--结果集映射-->
-	<resultMap id="UserEntityResultMap" type="UserEntity">
+    <resultMap id="UserEntityResultMap" type="UserEntity">
         <!--id一般为主键字段-->
-		<id column="id" property="id" />
+        <id column="id" property="id"/>
         <!--result为普通字段-->
-		<result column="user_name" property="userName" />
-		<result column="real_name" property="realName" />
-		<result column="sex" property="sex" />
-		<result column="mobile" property="mobile" />
-		<result column="email" property="email" />
-		<result column="note" property="note" />
-	</resultMap>
+        <result column="user_name" property="userName"/>
+        <result column="real_name" property="realName"/>
+        <result column="sex" property="sex"/>
+        <result column="mobile" property="mobile"/>
+        <result column="email" property="email"/>
+        <result column="note" property="note"/>
+    </resultMap>
 
     <!--resultMap和resultType
         resultType可自动映射，如果配置了mapUnderscoreToCamelCase，可以将数据库的下划线列名映射为JavaBean的驼峰属性名
@@ -24,40 +24,55 @@
 
     <!--SQL片段,可以实现SQL的复用-->
     <sql id="BaseColumnList">
-
+        id, user_name, real_name, sex, mobile, email, note, position_id
     </sql>
 
-	<!--一级缓存默认开启,可以通过flushCache="true"禁用一级缓存-->
-	<select id="selectById" resultMap="UserEntityResultMap" parameterType="long" resultType="UserEntity" >
-		select
+    <!--一级缓存默认开启,可以通过flushCache="true"禁用一级缓存-->
+    <select id="selectById" resultMap="UserEntityResultMap" parameterType="long" resultType="UserEntity">
+        select
         <!--引用SQL片段-->
         <!--<include refid="BaseColumnList" />-->
         id, user_name, real_name, sex, mobile, email, note, position_id
-		from t_user
-		where id = #{id}
-	</select>
+        from t_user
+        where id = #{id}
+    </select>
 
-    <!--<insert id="insert" parameterType="UserEntity" useGeneratedKeys="true" keyProperty="id" statementType="PREPARED">
-        insert into t_user(user_name,real_name,sex,mobile,email,note,position_id)
-        values(#{userName},#{realName},#{sex},#{mobile},#{email},#{note},#{positionId})
-    </insert>-->
+    <!--使用resultType自动映射查询结果,要求数据库列名与POJO的属性名完全对应
+        如果列名和POJO不一致,但列名符合单词下划线分割,且POJO是驼峰命名法,则可设置mapUnderscoreToCamelCase为true
+        推荐统一都使用ResultMap进行结果集映射
+    -->
+    <!--<select id="selectById" parameterType="long" resultType="UserEntity" >-->
+    <!--select-->
+    <!--&lt;!&ndash;引用SQL片段&ndash;&gt;-->
+    <!--&lt;!&ndash;<include refid="BaseColumnList" />&ndash;&gt;-->
+    <!--id, user_name, real_name, sex, mobile, email, note, position_id-->
+    <!--from t_user-->
+    <!--where id = #{id}-->
+    <!--</select>-->
 
-    <insert id="insert" parameterType="UserEntity">
-        <!--通过selectKey将自动生成的主键填充到Entity对象中
-            MySQL通过SELECT LAST_INSERT_ID()语句查询最新插入的id,由于id是插入后才生成,所以order="AFTER"
-        -->
-        <selectKey keyProperty="id" keyColumn="id" order="AFTER" resultType="long">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
-
-        insert into t_user(user_name,real_name,sex,mobile,email,note,position_id)
-        values(#{userName},#{realName},#{sex},#{mobile},#{email},#{note},#{positionId})
+    <!--通过useGeneratedKeys和keyProperty属性,在insert/update时获取主键-->
+    <insert id="insert" parameterType="UserEntity" useGeneratedKeys="true" keyProperty="id" statementType="PREPARED">
+        insert into t_user (user_name, real_name, sex, mobile, email, note, position_id)
+        values (#{userName}, #{realName}, #{sex}, #{mobile}, #{email}, #{note}, #{positionId})
     </insert>
+
+    <!--<insert id="insert" parameterType="UserEntity">-->
+    <!--&lt;!&ndash;通过selectKey将自动生成的主键填充到Entity对象中-->
+    <!--MySQL通过SELECT LAST_INSERT_ID()语句查询最新插入的id,由于id是插入后才生成,所以order="AFTER"-->
+    <!--&ndash;&gt;-->
+    <!--<selectKey keyProperty="id" keyColumn="id" order="AFTER" resultType="long">-->
+    <!--SELECT LAST_INSERT_ID()-->
+    <!--</selectKey>-->
+
+    <!--insert into t_user(user_name,real_name,sex,mobile,email,note,position_id)-->
+    <!--values(#{userName},#{realName},#{sex},#{mobile},#{email},#{note},#{positionId})-->
+    <!--</insert>-->
 
 
     <update id="update" parameterType="UserEntity" useGeneratedKeys="true" keyProperty="id">
-        update t_user set user_name = #{userName},real_name = #{realName},sex = #{sex},
-        mobile = #{mobile}, email = #{email} , note = #{note}, position_id = #{positionId}
+        update t_user
+        set user_name = #{userName}, real_name = #{realName}, sex = #{sex},
+            mobile    = #{mobile}, email = #{email}, note = #{note}, position_id = #{positionId}
         where id = #{id}
     </update>
 

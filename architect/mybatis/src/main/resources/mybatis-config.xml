@@ -3,14 +3,15 @@
 <configuration>
 
     <!--引入properties配置文件-->
-	<properties resource="db.properties" />
+    <properties resource="db.properties"/>
 
     <!--进行MyBatis一些全局属性的配置-->
-	<settings>
-		<setting name="mapUnderscoreToCamelCase" value="true" />
-        <!--开启二级缓存-->
+    <settings>
+        <!--开启数据库列名的下划线规则与POJO的字段驼峰规则自动映射-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--二级缓存的全局开关-->
         <setting name="cacheEnabled" value="true"/>
-	</settings>
+    </settings>
 
     <!--别名配置-->
     <typeAliases>
@@ -20,7 +21,7 @@
     <!--注册插件-->
     <plugins>
         <plugin interceptor="william.mybatis.quickstart.SlowQueryMonitor">
-            <property name="threshold" value="10"/>
+            <property name="threshold" value="100000"/>
         </plugin>
     </plugins>
 
@@ -28,26 +29,26 @@
     <environments default="development">
         <!-- 环境配置1，每个SqlSessionFactory对应一个环境 -->
         <environment id="development">
-            <transactionManager type="JDBC" />
+            <transactionManager type="JDBC"/>
             <dataSource type="UNPOOLED">
-                <property name="driver" value="${jdbc_driver}" />
-                <property name="url" value="${jdbc_url}" />
-                <property name="username" value="${jdbc_username}" />
-                <property name="password" value="${jdbc_password}" />
+                <property name="driver" value="${jdbc_driver}"/>
+                <property name="url" value="${jdbc_url}"/>
+                <property name="username" value="${jdbc_username}"/>
+                <property name="password" value="${jdbc_password}"/>
             </dataSource>
         </environment>
 
     </environments>
 
-	<!-- 映射文件，mapper的配置文件 -->
- 	<mappers>
-		<!--直接映射到相应的mapper文件-->
-		<mapper resource="mapper/UserMapper.xml" />
-	</mappers>
+    <!-- 映射文件，mapper的配置文件 -->
+    <mappers>
+        <!--直接映射到相应的mapper文件-->
+        <mapper resource="mapper/UserMapper.xml"/>
+    </mappers>
 
-	<!--<mappers>
+    <!--<mappers>
         &lt;!&ndash;加载Mapper接口，要求映射文件与接口在同一个路径下,且名称相同&ndash;&gt;
-		<mapper class="william.mybatis.quickstart.mapper.UserMapper"/>
-	</mappers>-->
+        <mapper class="william.mybatis.quickstart.mapper.UserMapper"/>
+    </mappers>-->
 
 </configuration>

@@ -23,7 +23,6 @@
         <module>elastic-job</module>
         <module>cache</module>
         <module>leetcode</module>
-        <module>basic</module>
         <module>design-pattern</module>
         <module>mysql</module>
         <module>effective-java</module>
