@@ -12,4 +12,6 @@ public class User {
     private long id;
 
     private String name;
+
+    private byte[] data = new byte[1024 * 50];
 }

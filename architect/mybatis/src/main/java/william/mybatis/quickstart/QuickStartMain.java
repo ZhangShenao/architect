@@ -1,5 +1,10 @@
 package william.mybatis.quickstart;
 
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.ibatis.reflection.DefaultReflectorFactory;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.ReflectorFactory;
@@ -14,17 +19,19 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.util.ResourceUtils;
+
 import william.mybatis.quickstart.entity.UserEntity;
 import william.mybatis.quickstart.mapper.UserMapper;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Auther: ZhangShenao
  * @Date: 2018/12/7 11:35
  * @Description:
+ *
+ * SqlSessionFactoryBuilder: 基于建造者模式,读取配置信息,创建SqlSessionFactory。方法级别生命周期
+ * SqlSessionFactory: 基于工厂单例模式,创建SqlSession,存在于程序的整个生命周期
+ * SqlSession: 代表一次数据库连接。一般通过调用Mapper访问数据库,也可以直接发送SQL执行。线程不安全,要保证线程独享(方法级别生命周期)
+ * Mapper: 由一个Java接口和XML文件组成,包含了要执行的SQL语句和结果集映射规则。方法级别生命周期
  */
 public class QuickStartMain {
     private SqlSessionFactory sqlSessionFactory;
@@ -111,9 +118,8 @@ public class QuickStartMain {
 
 
         //Insert、Update和Delete操作都会更新缓存
-        userEntity.setNote("New Note");
-        userMapper.update(userEntity);
-
+       /* userEntity.setNote("New Note");
+        userMapper.update(userEntity);*/
 
         //第二次查询,走缓存
         UserMapper userMapper1 = sqlSession.getMapper(UserMapper.class);
@@ -121,9 +127,9 @@ public class QuickStartMain {
         System.err.println(userEntity1);
     }
 
-    //二级缓存存在于SqlSessionFactory的生命周期中,可以理解为跨sqlSession
+    //二级缓存存在于SqlSessionFactory的生命周期中,可以理解为跨SqlSession的缓存
     //二级缓存是以namespace为单位的,不同namespace下的操作互不影响。
-    //生成环境下建议关闭二级缓存,因为二级缓存容易造成多namespace之间共享一份缓存,从而出现脏读的情况
+    //生产环境下建议关闭二级缓存,因为二级缓存容易造成多namespace之间共享一份缓存,从而出现脏读的情况
     @Test
     public void testLevel2Cache() {
         //第一次查询,走DB
