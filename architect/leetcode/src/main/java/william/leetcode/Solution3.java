@@ -9,6 +9,7 @@ import java.util.Map;
  * @Description:https://leetcode.com/problems/longest-substring-without-repeating-characters/
  */
 public class Solution3 {
+    //给定一个字符串，找到最长子字符串的长度而不重复字符。例如给定字符串"abcabcbb"，答案是"abc"，长度为3。
     public static void main(String[] args) {
         Solution3 s = new Solution3();
         System.err.println(s.lengthOfLongestSubstring("pwwkew"));
