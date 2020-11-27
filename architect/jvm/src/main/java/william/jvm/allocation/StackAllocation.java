@@ -13,7 +13,7 @@ package william.jvm.allocation;
  * 开启逃逸分析: -XX:+DoEscapeAnalysis JDK7之后默认开启
  * 开启标量替换: -XX:+EliminateAllocations JDK7之后默认开启
  *
- * -Xmx15M -Xmx15M -XX:+PrintGCDetail
+ * -Xms15M -Xmx15M -XX:+PrintGCDetail
  */
 public class StackAllocation {
     public static void main(String[] args) {
