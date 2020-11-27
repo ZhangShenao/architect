@@ -1,17 +1,19 @@
-package william.jvm.objectheader;
+package william.jvm.layout;
 
 import org.openjdk.jol.info.ClassLayout;
 
 /**
  * @Author zhangshenao
  * @Date 2020-06-18
- * @Description 查看对象各部分(对象头 + 实例数据 + Padding)所占内存空间的大小
+ * @Description 对象内存布局 = 对象头 + 实例数据 + 对齐填充
+ * 对象头 = MarkWord + 类型指针 + 数组长度(仅数组类型采用)
  */
-public class ShowObjectSize {
+public class ShowObjectLayout {
     public static void main(String[] args) {
         //Object对象
-        ClassLayout o1 = ClassLayout.parseInstance(new Object());
-        System.err.println(o1.toPrintable());
+        ClassLayout l1 = ClassLayout.parseInstance(new Object());
+        System.err.println("Object对象");
+        System.err.println(l1.toPrintable());
         System.err.println();
 
         //数组对象
@@ -19,18 +21,20 @@ public class ShowObjectSize {
         for (int i = 0; i < arr.length; i++) {
             arr[i] = i;
         }
-        ClassLayout o2 = ClassLayout.parseInstance(arr);
-        System.err.println(o2.toPrintable());
+        ClassLayout l2 = ClassLayout.parseInstance(arr);
+        System.err.println("数组对象");
+        System.err.println(l2.toPrintable());
         System.err.println();
 
         //自定义对象
-        ClassLayout o3 = ClassLayout.parseInstance(new A());
-        System.err.println(o3.toPrintable());
+        ClassLayout l3 = ClassLayout.parseInstance(new A());
+        System.err.println("自定义对象");
+        System.err.println(l3.toPrintable());
         System.err.println();
 
     }
 
-    // ‐XX:+UseCompressedOops 默认开启的压缩所有指针
+    // -XX:+UseCompressedOops 默认开启的压缩所有指针
     // ‐XX:+UseCompressedClassPointers 默认开启的压缩对象头里的类型指针Klass Pointer
     // Oops : Ordinary Object Pointers
     public static class A {
