@@ -10,7 +10,7 @@ import william.jvm.allocation.User;
  * @Date 2020-07-05
  * @Description 程序OOM后, 自动dump堆内存信息
  * <p>
- * ﻿-Xms10M -Xmx10M -XX:+PrintGCDetails -XX:+HeapDumpOnOutOfMemoryError
+ * ﻿-Xms5M -Xmx5M -XX:+PrintGCDetails -XX:+HeapDumpOnOutOfMemoryError
  * -XX:HeapDumpPath=/Users/zhangshenao/Desktop/test.dump
  */
 public class TestOOM {
