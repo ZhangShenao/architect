@@ -13,7 +13,7 @@
 //        System.err.println(s.findKthLargest(nums, k));
 //    }
 //
-//    //在数组nums中找到第k大的元素(k从0开始),要求算法时间复杂度O(n*logn),空间复杂度为O(1)
+//    //在无序数组nums中找到第k大的元素(k从0开始),要求算法时间复杂度不大于o(n*logn)
 //    public int findKthLargest(int[] nums, int k) { }
 //
 //    //在数组nums中找到第k大的元素(k从0开始)

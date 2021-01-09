@@ -14,7 +14,6 @@
         <module>spring</module>
         <module>rocketmq</module>
         <module>mybatis</module>
-        <module>activemq</module>
         <module>netty</module>
         <module>kafka</module>
         <module>quartz</module>
@@ -24,8 +23,6 @@
         <module>cache</module>
         <module>leetcode</module>
         <module>design-pattern</module>
-        <module>mysql</module>
-        <module>effective-java</module>
         <module>grpc</module>
         <module>jvm</module>
         <module>nacos</module>
