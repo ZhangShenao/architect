@@ -8,6 +8,7 @@ import william.grpc.protos.GreeterOuterClass.HelloRequest;
 /**
  * @author zhangshenao
  * Created on 2019-08-19
+ * gRPC 服务实现类
  */
 public class HelloServiceImpl extends GreeterGrpc.GreeterImplBase {
     @Override
