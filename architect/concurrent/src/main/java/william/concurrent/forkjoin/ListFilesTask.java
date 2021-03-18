@@ -1,21 +1,21 @@
 package william.concurrent.forkjoin;
 
-import org.springframework.util.CollectionUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
+
+import org.springframework.util.CollectionUtils;
 
 /**
  * @Auther: ZhangShenao
  * @Date: 2018/11/18 12:21
  * @Description:
  */
-public class ListFilesTask extends RecursiveAction{
+public class ListFilesTask extends RecursiveAction {
     private String path;
 
     private Predicate<File> filePredicate;
@@ -28,25 +28,21 @@ public class ListFilesTask extends RecursiveAction{
     @Override
     protected void compute() {
         File file = new File(path);
-        if (file == null){
-            return;
-        }
         File[] files = file.listFiles();
-        if (files == null || files.length <= 0){
+        if (files == null || files.length <= 0) {
             return;
         }
         List<ListFilesTask> tasks = new ArrayList<>();
-        for (File f : files){
-            if (f.isFile()){
-                if (filePredicate.test(f)){
+        for (File f : files) {
+            if (f.isFile()) {
+                if (filePredicate.test(f)) {
                     System.err.println(f.getName());
                 }
-            }
-            else if (f.isDirectory()){
-                tasks.add(new ListFilesTask(f.getPath(),filePredicate));
+            } else if (f.isDirectory()) {
+                tasks.add(new ListFilesTask(f.getPath(), filePredicate));
             }
         }
-        if (!CollectionUtils.isEmpty(tasks)){
+        if (!CollectionUtils.isEmpty(tasks)) {
             invokeAll(tasks);
         }
     }
