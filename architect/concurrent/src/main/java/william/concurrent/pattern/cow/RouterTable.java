@@ -1,4 +1,4 @@
-package william.concurrent.cow;
+package william.concurrent.pattern.cow;
 
 import java.util.Optional;
 import java.util.Set;
