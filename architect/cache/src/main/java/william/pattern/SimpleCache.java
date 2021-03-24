@@ -11,8 +11,7 @@ import java.util.function.Supplier;
 /**
  * @Author: ZhangShenao
  * @Date: 2019/5/22 10:22
- * @Description:基于读写锁实现的简单的缓存
- * 1.读操作之间可并发执行
+ * @Description:基于读写锁实现的简单的缓存 1.读操作之间可并发执行
  * 2.读写、写写操作之间互斥
  * 3.根据key获取不同的锁,减小锁粒度
  */
@@ -41,11 +40,9 @@ public class SimpleCache<K, V> {
         //缓存未命中,加写锁,执行optionsWhenMiss操作
         try {
             acquireLock(key, true);
+            
             //这里再进行一次缓存的查询,避免高并发场景下,多线程竞争写锁,导致数据的重复查询
-            value = cache.get(key);
-            if (value == null) {
-                value = optionsWhenMiss.get();
-            }
+            value = cache.computeIfAbsent(key, k -> optionsWhenMiss.get());
         } finally {
             //释放写锁
             releaseLock(key, true);
