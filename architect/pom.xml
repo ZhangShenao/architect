@@ -16,16 +16,15 @@
         <module>mybatis</module>
         <module>netty</module>
         <module>kafka</module>
-        <module>quartz</module>
         <module>redis</module>
         <module>springboot</module>
-        <module>elastic-job</module>
         <module>cache</module>
         <module>leetcode</module>
         <module>design-pattern</module>
         <module>grpc</module>
         <module>jvm</module>
         <module>nacos</module>
+        <module>algo</module>
     </modules>
     <packaging>pom</packaging>
 
