@@ -11,7 +11,9 @@ import java.util.Scanner;
  */
 public class LRUBasedOnLinkedList<T> {
     private static final int DEFAULT_CAPACITY = 10; //默认容量
+
     //头结点 head.next指向链表的首元素
+    //编程技巧：利用哨兵简化编程难度
     private Node<T> head;
 
     //链表长度(元素数量)
