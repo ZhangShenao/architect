@@ -48,12 +48,32 @@ public class MergeSort {
 
         //对排好序的两部分数组进行合并
         int len = end - start + 1;
+        int[] tmp = merge(arr, start, mid, end);
+
+        //将排好序的数组拷贝回原数组
+        for (int j = 0; j < len; j++) {
+            arr[start + j] = tmp[j];
+        }
+    }
+
+    /**
+     * 将排好序的两部分数组进行合并
+     *
+     * @param arr 整个数组
+     * @param lStart 左边数组的起始下标
+     * @param lEnd 左边数组的终止下标
+     * @param rEnd 右边数组的终止下标
+     * @return 合并后的有序数组
+     */
+    private static int[] merge(int[] arr, int lStart, int lEnd, int rEnd) {
+        //对排好序的两部分数组进行合并
+        int len = rEnd - lStart + 1;
         int[] tmp = new int[len];
         int i = 0;
-        int l = start;
-        int r = mid + 1;
+        int l = lStart;
+        int r = lEnd + 1;
 
-        while (l <= mid && r <= end && i < len) {
+        while (l <= lEnd && r <= rEnd && i < len) {
             if (arr[l] <= arr[r]) {
                 tmp[i] = arr[l];
                 ++i;
@@ -65,21 +85,17 @@ public class MergeSort {
             }
         }
 
-        while (l <= mid && i < len) {
+        while (l <= lEnd && i < len) {
             tmp[i] = arr[l];
             ++i;
             ++l;
         }
 
-        while (r <= end && i < len) {
+        while (r <= rEnd && i < len) {
             tmp[i] = arr[r];
             ++i;
             ++r;
         }
-
-        //将排好序的数组拷贝回原数组
-        for (int j = 0; j < len; j++) {
-            arr[start + j] = tmp[j];
-        }
+        return tmp;
     }
 }
