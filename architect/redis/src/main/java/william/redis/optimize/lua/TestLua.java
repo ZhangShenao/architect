@@ -10,6 +10,9 @@ import redis.clients.jedis.JedisPoolConfig;
  * @Author zhangshenao
  * @Date 2020-02-05
  * @Description 执行Lua脚本
+ * <p>
+ * Redis的Lua脚本可以保证原子性和事务，支持命令执行失败自动回滚
+ * 此外,Lua脚本还可以有效减少网络开销,提升性能
  */
 public class TestLua {
     public static void main(String[] args) {
@@ -34,7 +37,7 @@ public class TestLua {
                 " local b = tonumber(ARGV[1]) " +
                 " if a >= b then " +
                 "   redis.call('set', KEYS[1], count-b) " +
-//                "   bb == 0 " +     //模拟语法报错回滚操作
+//                                "   bb == 0 " +     //模拟语法报错回滚操作
                 "   return 1 " +
                 " end " +
                 " return 0 ";
