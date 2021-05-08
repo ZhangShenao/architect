@@ -34,6 +34,11 @@ public class TestPipeline {
         for (int i = 0; i < 10; i++) {
             pipelined.incr("pipelineKey");
             pipelined.set("key-" + i, "value" + i);
+
+            //Pipeline只是把命令打包执行，并不保证事务和原子性，如果中间某条命令执行失败，后面的命令会继续执行
+            if (i == 4) {
+                pipelined.setbit("bit1", -1, true); //模拟非法命令
+            }
         }
 
         //执行pipeline
