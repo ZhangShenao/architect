@@ -13,9 +13,9 @@ public class LazyLoadClass {
 
     public static void main(String[] args) {
         A a = new A();
-        //        B b = null; //这里并没有真正使用到B类,因此不会对B执行类加载
+        B b = null; //这里并没有真正使用到B类,因此不会对B执行类加载
 
-        B b = new B(); //这里真正使用到B类,会对B执行类加载
+        //        B b = new B(); //这里真正使用到B类,会对B执行类加载
     }
 
     private static class A {
