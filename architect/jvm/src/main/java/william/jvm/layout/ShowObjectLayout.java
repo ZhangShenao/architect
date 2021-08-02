@@ -6,7 +6,7 @@ import org.openjdk.jol.info.ClassLayout;
  * @Author zhangshenao
  * @Date 2020-06-18
  * @Description 对象内存布局 = 对象头 + 实例数据 + 对齐填充
- * 对象头 = MarkWord + 类型指针 + 数组长度(仅数组类型采用)
+ * 对象头 = MarkWord + 类型指针 + 数组长度(仅数组类型才有)
  */
 public class ShowObjectLayout {
     public static void main(String[] args) {
