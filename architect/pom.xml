@@ -8,7 +8,6 @@
     <artifactId>architect</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>algorithm</module>
         <module>zookeeper</module>
         <module>concurrent</module>
         <module>spring</module>
