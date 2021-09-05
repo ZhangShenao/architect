@@ -1,50 +1,53 @@
 package william.algo.stack;
 
+import java.util.Stack;
+
 /**
  * @Author zhangshenao
  * @Date 2021-09-02
- * @Description
+ * @Description https://leetcode-cn.com/problems/valid-parentheses/
  */
 public class 有效的括号 {
     //判断一个字符串是否是有效的括号
     //假设字符串中只包含'('和')'
     //可以记录左括号的数量来代替入栈操作,降低空间复杂度
     //时间复杂度O(n) 空间复杂度O(1)
-    public static boolean isValid(String str) {
-        //边界条件——空串
-        if (str == null || str.length() <= 0) {
+    public static boolean isValid(String s) {
+        if (s == null || s.length() == 0) {
+            return true;
+        }
+        if (s.length() % 2 == 1) {
             return false;
         }
+        Stack<Character> t = new Stack<>();
 
-        //边界条件——奇数长度的字符串,一定是非法的
-        if (str.length() % 2 == 1) {
-            return false;
-        }
-
-        //记录左括号的数量
-        int leftBraceNum = 0;
-
-        for (int i = 0; i < str.length(); i++) {
-            //遍历字符串
-            char c = str.charAt(i);
-
-            if ('(' == c) {
-                //如果当前字符为左括号,则将计数器+1
-                ++leftBraceNum;
-            } else if (')' == c) {
-                //如果当前字符为右括号,则判断左括号数量
-                if (leftBraceNum <= 0) {
-                    //如果左括号数量<0,说明有多出来的右括号,则为非法字符串
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '{' || c == '(' || c == '[') {
+                t.push(c);
+            } else if (c == '}') {
+                if (t.empty() || t.peek() != '{') {
                     return false;
                 }
-
-                //如果左括号数量>0,则消除一对括号,计数器减一
-                --leftBraceNum;
+                t.pop();
+            } else if (c == ']') {
+                if (t.empty() || t.peek() != '[') {
+                    return false;
+                }
+                t.pop();
+            } else if (c == ')') {
+                if (t.empty() || t.peek() != '(') {
+                    return false;
+                }
+                t.pop();
+            } else {
+                return false;
             }
         }
 
-        //最后判断是否左右括号都已经匹配成功
-        return (leftBraceNum == 0);
+        return t.empty();
+
+
     }
 
     public static void main(String[] args) {
