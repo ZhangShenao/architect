@@ -10,7 +10,7 @@ import java.util.Deque;
  */
 public class 大鱼吃小鱼 {
     //时间复杂度O(n):每条鱼都只入栈、出栈一次
-    //空间复杂度O(n):极端情况下所有鱼都会入栈
+    //空间复杂度O(n):最坏情况下所有鱼都会入栈
     public static int fishEating(int[] size, int[] direction) {
         //边界条件
         if (size.length != direction.length) {
