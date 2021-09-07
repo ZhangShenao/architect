@@ -5,8 +5,9 @@ package william.algo.queue;
  * @Date 2021-09-07
  * @Description 实现循环队列
  * https://leetcode-cn.com/problems/design-circular-queue/description/
+ * 入队、出队的时间复杂度均为O(1)
  */
-public class 实现循环数组 {
+public class 实现循环队列 {
     private int[] queue;    //使用数组保存队列中的元素
     private int head;   //维护队列头索引
     private int tail;   //维护队列尾索引（下一个待入队的位置）
@@ -14,7 +15,7 @@ public class 实现循环数组 {
     private int capacity;   //记录队列容量
 
 
-    public 实现循环数组(int k) {
+    public 实现循环队列(int k) {
         if (k <= 0) {
             throw new IllegalArgumentException("capacity must be positive!");
         }
