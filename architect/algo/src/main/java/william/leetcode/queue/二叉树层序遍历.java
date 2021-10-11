@@ -1,4 +1,4 @@
-package william.algo.queue;
+package william.leetcode.queue;
 
 import java.util.ArrayList;
 import java.util.Collections;

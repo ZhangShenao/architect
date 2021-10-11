@@ -1,4 +1,4 @@
-package william.algo.stack;
+package william.leetcode.stack;
 
 import java.util.Stack;
 
