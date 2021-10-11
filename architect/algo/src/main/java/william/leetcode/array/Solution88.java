@@ -1,4 +1,4 @@
-package william.algo.array;
+package william.leetcode.array;
 
 /**
  * @Author zhangshenao
