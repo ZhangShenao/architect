@@ -44,7 +44,7 @@ public class 双路快排 {
             while (arr[i] < pivot && i <= end) {    //找到左边第一个比基准值大的元素
                 ++i;
             }
-            while (arr[j] > pivot && j >= start) {  //找到右边第一个比及职责小的元素
+            while (arr[j] > pivot && j >= start) {  //找到右边第一个比基准值小的元素
                 --j;
             }
             if (i > j) {
@@ -57,14 +57,14 @@ public class 双路快排 {
             j--;
         }
 
-        int tmp = arr[start];   //j就是基准值的位置,交换元素s
+        int tmp = arr[start];   //j就是基准值的位置,交换元素
         arr[start] = arr[j];
         arr[j] = tmp;
         return j;
     }
 
     public static void main(String[] args) {
-        int[] arr = new int[] {-100, 9, 101, 900, -99324, 21342, 2334, -24892, 32582};
+        int[] arr = new int[] {-100, 99, -200, 98, -300, 97, 0, 0, 100, 200, 100, 200, -999, -1001, 1005};
         doubleQuickSort(arr);
         System.err.println(Arrays.toString(arr));
     }
