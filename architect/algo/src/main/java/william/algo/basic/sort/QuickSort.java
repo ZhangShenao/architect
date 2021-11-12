@@ -1,38 +1,39 @@
-package william.algo.leetcode.sort;
+package william.algo.basic.sort;
 
 import java.util.Arrays;
 
 /**
  * @Author zhangshenao
- * @Date 2021-11-01
- * @Description
+ * @Date 2021-11-12
+ * @Description 快速排序
  */
-public class 双路快排 {
-    public static void doubleQuickSort(int[] arr) {
+public class QuickSort {
+    public void sort(int[] arr) {
         //边界
         if (arr == null || arr.length == 0) {
             return;
         }
 
-        //递归
+        //分治
         quickSort(arr, 0, arr.length - 1);
-
     }
 
     //对数组arr的[start,end]区间进行快速排序
-    private static void quickSort(int[] arr, int start, int end) {
-        if (start >= end) {  //递归退出条件
+    private void quickSort(int[] arr, int start, int end) {
+        //递归终止条件
+        if (start >= end) {
             return;
         }
 
-        //递归做数组的左右两部分进行快排
-        int p = partition(arr, start, end);
-        quickSort(arr, start, p - 1);
-        quickSort(arr, p + 1, end);
+        //找到分区点
+        int partition = partition(arr, start, end);
+
+        //对分区点的左、右两部分分别进行快排
+        quickSort(arr, start, partition - 1);
+        quickSort(arr, partition + 1, end);
     }
 
-    //对数组arr的[start,end]区间进行partition操作,返回partition下标
-    private static int partition(int[] arr, int start, int end) {
+    private int partition(int[] arr, int start, int end) {
         //固定选择第一个元素作为基准值
         int pivot = arr[start];
 
@@ -64,8 +65,9 @@ public class 双路快排 {
     }
 
     public static void main(String[] args) {
+        QuickSort sort = new QuickSort();
         int[] arr = new int[] {-100, 99, -200, 98, -300, 97, 0, 0, 100, 200, 100, 200, -999, -1001, 1005};
-        doubleQuickSort(arr);
+        sort.sort(arr);
         System.err.println(Arrays.toString(arr));
     }
 }
