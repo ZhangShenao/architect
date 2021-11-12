@@ -42,31 +42,38 @@ public class QuickSort {
         int j = end;
 
         while (true) {
-            while (arr[i] < pivot && i <= end) {    //找到左边第一个比基准值大的元素
+            while (i <= end && arr[i] < pivot) {    //找到左边第一个比基准值大的元素
                 ++i;
             }
-            while (arr[j] > pivot && j >= start) {  //找到右边第一个比基准值小的元素
+            while (j >= start && arr[j] > pivot) {  //找到右边第一个比基准值小的元素
                 --j;
             }
-            if (i > j) {
+            if (i >= j) {
                 break;
             }
-            int tmp = arr[i];       //交换两个元素
-            arr[i] = arr[j];
-            arr[j] = tmp;
+
+            //交换元素
+            swap(arr, i, j);
+
+            //进行下一轮
             i++;
             j--;
         }
 
-        int tmp = arr[start];   //j就是基准值的位置,交换元素
-        arr[start] = arr[j];
-        arr[j] = tmp;
+        //j就是基准值的位置,交换元素
+        swap(arr, start, j);
         return j;
+    }
+
+    private void swap(int[] arr, int i, int j) {
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
     }
 
     public static void main(String[] args) {
         QuickSort sort = new QuickSort();
-        int[] arr = new int[] {-100, 99, -200, 98, -300, 97, 0, 0, 100, 200, 100, 200, -999, -1001, 1005};
+        int[] arr = new int[] {-100, 99, -200, 98, -300, 97, 0, 0, 100, 200, 100, 200, -999, -1001, 1005, -100, 99};
         sort.sort(arr);
         System.err.println(Arrays.toString(arr));
     }
