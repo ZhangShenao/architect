@@ -8,9 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousFileChannel;
-import java.nio.channels.Channel;
 import java.nio.channels.FileChannel;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadLocalRandom;
@@ -62,7 +60,7 @@ public class BufferOperations {
 
         //使用BufferedOutputStream可以提升写性能
         try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileName), bufSize)) {
-            for (int i = 0; i <= 1000000; i++) {
+            for (int i = 0; i <= 10000000; i++) {
                 for (int j = 0; j < 5; j++) {
                     int c = (97 + ThreadLocalRandom.current().nextInt(5));
                     out.write(c);
