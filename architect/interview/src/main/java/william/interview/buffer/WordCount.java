@@ -47,23 +47,23 @@ public class WordCount {
         long total = file.length();
         long pos = 0;
 
-        Map<String,Long> result = new HashMap<>();
-        List<Future<Map<String,Long>>> futures = new ArrayList<>();
+        Map<String, Long> result = new HashMap<>();
+        List<Future<Map<String, Long>>> futures = new ArrayList<>();
 
         long startTime = System.currentTimeMillis();
         //Fork
-        while (pos < total){
-            long next = Math.min(pos + trunkSize,total);
+        while (pos < total) {
+            long next = Math.min(pos + trunkSize, total);
             WordCountTask task = new WordCountTask(fileName, pos, next);
             futures.add(pool.submit(task)); //保存Future
             pos = next;
         }
 
         //Join
-        for (Future<Map<String,Long>> f : futures){
+        for (Future<Map<String, Long>> f : futures) {
             Map<String, Long> partition = f.get();
-            for (Map.Entry<String, Long> e : partition.entrySet()){
-                incrWordCount(result,e.getKey(),e.getValue());
+            for (Map.Entry<String, Long> e : partition.entrySet()) {
+                incrWordCount(result, e.getKey(), e.getValue());
             }
         }
 
@@ -90,7 +90,6 @@ public class WordCount {
                 return Collections.emptyMap();
             }
 
-            Map<String, Long> result = new HashMap<>();
             //使用Channel Map将文件内容直接映射到内存
             try (FileChannel channel = new RandomAccessFile(fileName, "r").getChannel()) {
                 //默认情况: Device -> Kernel Space -> UserSpace(buffer) -> Thread
