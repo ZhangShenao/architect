@@ -42,7 +42,7 @@ public class BucketSort {
 
         //遍历桶,获取排好序的元素
         for (List<Integer> bucket : buckets) {
-            Integer[] array = bucket.toArray(Integer[]::new);
+            Integer[] array = bucket.toArray(new Integer[0]);
             QuickSort.sort(array);
             result.addAll(Arrays.stream(array).collect(Collectors.toList()));
         }
