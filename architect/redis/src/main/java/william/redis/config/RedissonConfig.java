@@ -17,8 +17,8 @@ public class RedissonConfig {
         //配置主从架构的客户端
         Config config = new Config();
         config.useMasterSlaveServers()
-                .setMasterAddress("redis://127.0.0.1:6379")
-                .addSlaveAddress("redis://127.0.0.1:6380", "redis://127.0.0.1:6381");
+                .setMasterAddress("redis://127.0.0.1:6379");
+//                .addSlaveAddress("redis://127.0.0.1:6380", "redis://127.0.0.1:6381");
         return (Redisson) Redisson.create(config);
     }
 }
