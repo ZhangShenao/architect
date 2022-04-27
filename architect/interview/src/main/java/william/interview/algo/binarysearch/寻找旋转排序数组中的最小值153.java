@@ -10,27 +10,23 @@ public class 寻找旋转排序数组中的最小值153 {
             return -1;
         }
 
+        //采用二分查找
+        int n = nums.length;
         int l = 0;
-        int r = nums.length - 1;
-        //二分查找
-        while (l <= r) {
+        int r = n - 1;
+
+        while (l < r) { //因为数组是不重复的,所以l和r不会重叠
             int mid = l + ((r - l) >> 1);
 
-            //mid在数组的左半部分
-            if (nums[mid] >= nums[0]) {
-                if (nums[mid] <= nums[r]) {  //整个数组有序,直接返回第一个元素
-                    return nums[0];
-                }
+            //将mid与r处的元素进行比较,判断最小值在mid的左侧还是右侧
+            if (nums[mid] <= nums[r]) {  //最小值的mid的左侧,丢弃右半部分
+                r = mid;
+            } else {    //最小值在mid的右侧,丢弃左半部分
                 l = mid + 1;
-            } else {    //mid在数组的有半部分,说明数组发生了翻转
-                if (mid > 0 && nums[mid - 1] < nums[mid]) { //判断左侧是否还有比nums[mid]小的元素
-                    r = mid - 1;
-                } else {
-                    return nums[mid];
-                }
             }
         }
 
+        //直接返回l处的元素
         return nums[l];
     }
 }
