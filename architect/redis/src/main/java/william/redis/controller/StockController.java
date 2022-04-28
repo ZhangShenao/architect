@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @Author zhangshenao
  * @Date 2020-02-03
- * @Description
- * Redisson实现的分布式锁,是可重入的。原理：
+ * @Description Redisson实现的分布式锁, 是可重入的。原理：
  * 1. 基于Redis的Hash结构,创建分布式锁。key=用户传入的lockKey, field=id:threadId value=锁的重入次数
  * 2. 锁有默认30s的超时时间,获取锁成功后,Redisson会创建定时任务,检查锁的ttl,定时为锁续约,避免任务未执行完成就释放了锁
  * 3. 获取锁失败的线程,会进入自旋等待
- *
  */
 @RestController
 @RequestMapping("/stock")
@@ -70,8 +68,11 @@ public class StockController {
         String lockValue = createLockValue(skuId);
         try {
             //加锁,并设置默认超时时间
-            redisTemplate.opsForValue().setIfAbsent(lockKey, lockValue);
-            redisTemplate.expire(lockKey, DEFAULT_LOCK_TTL_IN_SECONDS, TimeUnit.SECONDS);
+            Boolean result = redisTemplate.opsForValue().setIfAbsent(lockKey, lockValue, DEFAULT_LOCK_TTL_IN_SECONDS, TimeUnit.SECONDS);
+
+            if (Boolean.FALSE.equals(result)) {  //加锁失败
+                return "商品已售罄";
+            }
 
             //扣减库存
             String key = String.format(STOCK_KEY_FORMAT, skuId);
