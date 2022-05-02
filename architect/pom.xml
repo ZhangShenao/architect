@@ -24,7 +24,6 @@
         <module>jvm</module>
         <module>nacos</module>
         <module>algo</module>
-        <module>interview</module>
     </modules>
     <packaging>pom</packaging>
 
