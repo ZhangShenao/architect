@@ -3,7 +3,7 @@ package william.leetcode.binarysearch;
 /**
  * https://leetcode-cn.com/problems/search-in-rotated-sorted-array/description/
  */
-public class 搜索旋转排序数组33 {
+public class 搜索旋转排序数组_33 {
     public int search(int[] nums, int target) {
         //边界条件
         if (nums == null || nums.length == 0) {
@@ -41,7 +41,7 @@ public class 搜索旋转排序数组33 {
     }
 
     public static void main(String[] args) {
-        搜索旋转排序数组33 s = new 搜索旋转排序数组33();
+        搜索旋转排序数组_33 s = new 搜索旋转排序数组_33();
         int[] nums = new int[]{4, 5, 6, 7, 8, 1, 2, 3};
         int target = 8;
         System.out.println(s.search(nums, target));

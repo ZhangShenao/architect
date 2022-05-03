@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * https://leetcode-cn.com/problems/path-sum-ii/description/
  */
-public class 路径总和二113 {
+public class 路径总和二_113 {
     //全局保存result
     List<List<Integer>> result = new ArrayList<>();
 

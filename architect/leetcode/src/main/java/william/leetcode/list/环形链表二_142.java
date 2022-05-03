@@ -7,7 +7,7 @@ package william.leetcode.list;
  * <p>
  * https://leetcode-cn.com/problems/linked-list-cycle-ii/description/
  */
-public class 环形链表二142 {
+public class 环形链表二_142 {
     class ListNode {
         int val;
         ListNode next;

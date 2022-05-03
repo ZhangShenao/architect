@@ -7,7 +7,7 @@ package william.leetcode.list;
  * <p>
  * https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/description/
  */
-public class 删除链表的倒数第N个结点19 {
+public class 删除链表的倒数第N个结点_19 {
     public class ListNode {
         int val;
         ListNode next;

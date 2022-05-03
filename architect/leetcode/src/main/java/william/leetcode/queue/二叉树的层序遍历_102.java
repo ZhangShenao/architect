@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * https://leetcode-cn.com/problems/binary-tree-level-order-traversal/
  */
-public class 二叉树的层序遍历102 {
+public class 二叉树的层序遍历_102 {
     public List<List<Integer>> levelOrder(TreeNode root) {
         //边界条件
         if (root == null) {

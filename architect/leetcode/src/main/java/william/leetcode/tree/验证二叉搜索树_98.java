@@ -3,7 +3,7 @@ package william.leetcode.tree;
 /**
  * https://leetcode-cn.com/problems/validate-binary-search-tree/description/
  */
-public class 验证二叉搜索树98 {
+public class 验证二叉搜索树_98 {
     //全局控制条件
     private boolean valid = true;
 

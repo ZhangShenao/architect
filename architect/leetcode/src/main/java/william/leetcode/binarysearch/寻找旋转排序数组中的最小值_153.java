@@ -3,7 +3,7 @@ package william.leetcode.binarysearch;
 /**
  * https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/
  */
-public class 寻找旋转排序数组中的最小值153 {
+public class 寻找旋转排序数组中的最小值_153 {
     public int findMin(int[] nums) {
         //边界条件
         if (nums == null || nums.length == 0) {

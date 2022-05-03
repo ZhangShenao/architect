@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * https://leetcode-cn.com/problems/sliding-window-maximum/description/
  */
-public class 滑动窗口最大值239 {
+public class 滑动窗口最大值_239 {
     //使用双端队列构造一个单调递减队列,队头元素就是当前队列中的最大值
     private ArrayDeque<Integer> queue = new ArrayDeque<>();
 

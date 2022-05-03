@@ -6,7 +6,7 @@ package william.leetcode.list;
  * @Date 2022/4/24 上午10:17
  * https://leetcode-cn.com/problems/reverse-linked-list/
  */
-public class 反转链表206 {
+public class 反转链表_206 {
     public class ListNode {
         int val;
         ListNode next;

@@ -3,7 +3,7 @@ package william.leetcode.binarysearch;
 /**
  * https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/
  */
-public class 在排序数组中查找元素的第一个和最后一个位置34 {
+public class 在排序数组中查找元素的第一个和最后一个位置_34 {
     public int[] searchRange(int[] nums, int target) {
         //边界条件
         if (nums == null || nums.length == 0) {

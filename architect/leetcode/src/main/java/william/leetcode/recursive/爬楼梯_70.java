@@ -11,7 +11,7 @@ import java.util.logging.Handler;
  * <p>
  * https://leetcode-cn.com/problems/climbing-stairs/
  */
-public class 爬楼梯70 {
+public class 爬楼梯_70 {
     //使用一个map保存中间计算结果,避免重复计算的问题
     private Map<Integer, Integer> cache = new HashMap<>();
 
