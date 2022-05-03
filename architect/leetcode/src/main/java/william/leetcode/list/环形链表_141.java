@@ -7,7 +7,7 @@ package william.leetcode.list;
  * <p>
  * https://leetcode-cn.com/problems/linked-list-cycle/description/
  */
-public class 环形链表141 {
+public class 环形链表_141 {
     public boolean hasCycle(ListNode head) {
         //边界条件
         if (head == null || head.next == null) {

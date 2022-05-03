@@ -6,7 +6,7 @@ import java.util.Queue;
 /**
  * https://leetcode-cn.com/problems/implement-stack-using-queues/
  */
-public class 用队列实现栈225 {
+public class 用队列实现栈_225 {
     class MyStack {
         //使用两个队列,一个主队列和一个辅助队列
         //主队列用于存放元素,辅助队列用于元素的移动

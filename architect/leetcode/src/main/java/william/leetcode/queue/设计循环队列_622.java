@@ -3,7 +3,7 @@ package william.leetcode.queue;
 /**
  * https://leetcode-cn.com/problems/design-circular-queue/description/
  */
-public class 设计循环队列622 {
+public class 设计循环队列_622 {
     class MyCircularQueue {
         private int[] arr;  //采用k+1长度的数组维护队列元素(有一个多余的空间是浪费的)
         private int front;  //队列头指针,指向队头元素

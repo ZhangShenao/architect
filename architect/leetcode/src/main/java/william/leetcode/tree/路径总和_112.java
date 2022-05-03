@@ -3,7 +3,7 @@ package william.leetcode.tree;
 /**
  * https://leetcode-cn.com/problems/path-sum/description/
  */
-public class 路径总和112 {
+public class 路径总和_112 {
     public boolean hasPathSum(TreeNode root, int targetSum) {
         //边界条件
         if (root == null) {

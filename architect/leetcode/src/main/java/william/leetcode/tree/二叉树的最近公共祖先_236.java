@@ -1,6 +1,6 @@
 package william.leetcode.tree;
 
-public class 二叉树的最近公共祖先236 {
+public class 二叉树的最近公共祖先_236 {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         //递归终止条件
         if (root == null) {

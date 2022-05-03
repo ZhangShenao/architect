@@ -3,7 +3,7 @@ package william.leetcode.binarysearch;
 /**
  * https://leetcode-cn.com/problems/peak-index-in-a-mountain-array/description/
  */
-public class 山脉数组的峰顶索引852 {
+public class 山脉数组的峰顶索引_852 {
     public int peakIndexInMountainArray(int[] arr) {
         //边界条件
         if (arr == null || arr.length < 3) {

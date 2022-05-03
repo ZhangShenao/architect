@@ -6,7 +6,7 @@ package william.leetcode.list;
  * @Date 2022/4/24 上午10:47
  * https://leetcode-cn.com/problems/swap-nodes-in-pairs/description/
  */
-public class 两两交换链表中的节点24 {
+public class 两两交换链表中的节点_24 {
     public class ListNode {
         int val;
         ListNode next;

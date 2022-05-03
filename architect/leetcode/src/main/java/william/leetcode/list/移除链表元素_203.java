@@ -7,7 +7,7 @@ package william.leetcode.list;
  * <p>
  * https://leetcode-cn.com/problems/remove-linked-list-elements/description/
  */
-public class 移除链表元素203 {
+public class 移除链表元素_203 {
     public class ListNode {
         int val;
         ListNode next;

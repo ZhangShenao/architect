@@ -5,7 +5,7 @@ import java.util.Stack;
 /**
  * https://leetcode-cn.com/problems/valid-parentheses/
  */
-public class 有效的括号20 {
+public class 有效的括号_20 {
     public boolean isValid(String s) {
         //边界条件
         if (s == null || s.length() <= 0) {

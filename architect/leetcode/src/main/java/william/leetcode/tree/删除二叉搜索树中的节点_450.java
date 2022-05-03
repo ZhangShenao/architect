@@ -3,7 +3,7 @@ package william.leetcode.tree;
 /**
  * https://leetcode-cn.com/problems/delete-node-in-a-bst/description/
  */
-public class 删除二叉搜索树中的节点450 {
+public class 删除二叉搜索树中的节点_450 {
     public TreeNode deleteNode(TreeNode root, int key) {
         //边界条件
         if (root == null) {

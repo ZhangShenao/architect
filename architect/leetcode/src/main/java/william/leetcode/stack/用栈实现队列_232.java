@@ -5,7 +5,7 @@ import java.util.Stack;
 /**
  * https://leetcode-cn.com/problems/implement-queue-using-stacks/
  */
-public class 用栈实现队列232 {
+public class 用栈实现队列_232 {
     class MyQueue {
         //使用两个栈:一个输入栈,一个输出栈
         //push元素时放入输入栈,pop元素时从输出栈pop

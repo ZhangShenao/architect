@@ -7,7 +7,7 @@ package william.leetcode.list;
  * <p>
  * https://leetcode-cn.com/problems/merge-two-sorted-lists/description/
  */
-public class 合并两个有序链表21 {
+public class 合并两个有序链表_21 {
     public class ListNode {
         int val;
         ListNode next;
