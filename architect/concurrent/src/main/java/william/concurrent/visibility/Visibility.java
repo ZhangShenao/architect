@@ -6,14 +6,14 @@ package william.concurrent.visibility;
 public class Visibility {
     private boolean flag = true;
 
-    private void stop(){
+    private void stop() {
         flag = false;
         System.out.println("update flag to false");
     }
 
-    private void incr(){
+    private void incr() {
         int i = 0;
-        while (flag){
+        while (flag) {
             i++;
 
             //保证可见性的方式1:final
