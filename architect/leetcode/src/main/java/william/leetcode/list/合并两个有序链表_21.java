@@ -8,28 +8,11 @@ package william.leetcode.list;
  * https://leetcode-cn.com/problems/merge-two-sorted-lists/description/
  */
 public class 合并两个有序链表_21 {
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-    }
-
+    //采用双指针遍历两个有序链表
+    //时间复杂度O(m+n)
+    //空间复杂读O(1)
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         //边界条件
-        if (list1 == null && list2 == null) {
-            return null;
-        }
         if (list1 == null) {
             return list2;
         }
@@ -37,36 +20,32 @@ public class 合并两个有序链表_21 {
             return list1;
         }
 
-        ListNode dummy = new ListNode(0, null);  //创建哑结点
-        ListNode cur = dummy;
-        ListNode left = list1;
-        ListNode right = list2;
+        ListNode l1 = list1;
+        ListNode l2 = list2;
+        ListNode dummy = new ListNode(0, null);  //借助dummy哑头
+        ListNode n = dummy;
 
-        //遍历两个链表,寻找较小节点进行尾插入
-        while (left != null && right != null) {
-            if (left.val <= right.val) {
-                cur.next = left;
-                left = left.next;
+        //遍历两个链表,尾插入较小的元素
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                n.next = l1;
+                l1 = l1.next;
             } else {
-                cur.next = right;
-                right = right.next;
+                n.next = l2;
+                l2 = l2.next;
             }
-            cur = cur.next;
+            n = n.next;
         }
 
-        //处理未遍历完的情况
-        while (left != null) {
-            cur.next = left;
-            left = left.next;
-            cur = cur.next;
+        //处理其中一个链表未遍历完的情况
+        if (l1 != null) {
+            n.next = l1;
         }
-        while (right != null) {
-            cur.next = right;
-            right = right.next;
-            cur = cur.next;
+        if (l2 != null) {
+            n.next = l2;
         }
 
-        //返回头结点
+        //返回最终结果
         return dummy.next;
     }
 }
