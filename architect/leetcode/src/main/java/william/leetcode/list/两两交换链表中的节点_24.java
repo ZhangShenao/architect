@@ -7,23 +7,6 @@ package william.leetcode.list;
  * https://leetcode-cn.com/problems/swap-nodes-in-pairs/description/
  */
 public class 两两交换链表中的节点_24 {
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-    }
-
     public ListNode swapPairs(ListNode head) {
         //边界条件
         if (head == null || head.next == null) {

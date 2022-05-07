@@ -8,23 +8,6 @@ package william.leetcode.list;
  * https://leetcode-cn.com/problems/remove-linked-list-elements/description/
  */
 public class 移除链表元素_203 {
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-    }
-
     public ListNode removeElements(ListNode head, int val) {
         //边界条件
         if (head == null) {
