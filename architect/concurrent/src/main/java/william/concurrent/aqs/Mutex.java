@@ -53,7 +53,7 @@ public class Mutex implements Lock{
 
         @Override
         protected boolean tryAcquire(int arg) {
-            //当state为0时获取锁,将state设置为1
+            //当state为0时获取锁,将state设置为 1
             //因为当前线程在请求锁时并没有获取同步状态,因此需要进行CAS操作
             if (compareAndSetState(NOT_LOCK_STATE,LOCK_STATE)){
                 setExclusiveOwnerThread(Thread.currentThread());
