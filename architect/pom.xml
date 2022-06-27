@@ -20,7 +20,6 @@
         <module>cache</module>
         <module>leetcode</module>
         <module>design-pattern</module>
-        <module>grpc</module>
         <module>jvm</module>
         <module>nacos</module>
         <module>algo</module>
