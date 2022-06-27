@@ -3,8 +3,10 @@ package william.kafka.quickstart;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 import william.kafka.constant.KafkaConstants;
+
 import java.util.Properties;
 
 /**
@@ -31,13 +33,13 @@ public class Producer {
         //创建ProducerRecord,表示一个消息实例
         ProducerRecord<String, String> record = new ProducerRecord<>(KafkaConstants.TOPIC_NAME, "name", "James");
 
-        //发送消息——异步
-        producer.send(record);
-
         //发送消息——同步
-        producer.send(record,(metadata, exception) -> System.err.println("partition: " + metadata.partition() + ",offset: " + metadata.offset()));
+        RecordMetadata recordMetadata = producer.send(record).get();
+        System.out.println("发送消息结果 topic: " + recordMetadata.topic() + ", partition: " + recordMetadata.partition() + ", offset: " + recordMetadata.offset());
 
-        System.err.println("消息发送成功");
+        //发送消息——异步
+//        producer.send(record, (metadata, exception) -> System.err.println("partition: " + metadata.partition() + ",offset: " + metadata.offset()));
+
         producer.close();
     }
 }
