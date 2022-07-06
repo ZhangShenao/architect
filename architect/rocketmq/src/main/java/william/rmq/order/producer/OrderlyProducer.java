@@ -1,12 +1,15 @@
-package william.rmq.producer;
+package william.rmq.order.producer;
 
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
 import william.rmq.common.RocketMQConstants;
+
 import java.util.Objects;
 import java.util.UUID;
+
+import static william.rmq.common.RocketMQConstants.ORDER_STATUS;
 
 /**
  * @Auther: ZhangShenao
@@ -17,8 +20,6 @@ import java.util.UUID;
  * 2.异步发送无法实现顺序消息
  */
 public class OrderlyProducer {
-    private static final String[] ORDER_STATUS = {"创建订单", "支付订单", "关闭订单"};
-
     private static final int ORDER_NUM = 10;
 
     public static void main(String[] args) {
@@ -44,7 +45,7 @@ public class OrderlyProducer {
                         int index = Math.abs(Objects.hash(id)) % mqs.size();
                         return mqs.get(index);
                     }, orderId);
-                    System.err.println("Send Message Result: " + sendResult);
+                    System.out.println("Send Message Result: " + sendResult);
                 }
             }
 
