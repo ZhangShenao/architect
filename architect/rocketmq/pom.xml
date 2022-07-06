@@ -12,7 +12,7 @@
     <artifactId>rocketmq</artifactId>
 
     <properties>
-        <rocketmq.version>4.3.0</rocketmq.version>
+        <rocketmq.version>4.9.4</rocketmq.version>
     </properties>
 
     <dependencies>
