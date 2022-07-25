@@ -8,7 +8,7 @@
     <!-- 每个logger都关联到logger上下文，默认上下文名称为default。但可以使用<contextName>设置成其他名字，用于区分不同应用程序的记录。一旦设置，不能修改。 -->
     <contextName>spring-boot</contextName>
     <!-- 通过<property>定义的值会被插入到logger上下文中。定义变量后，可以使"${}"来使用变量	 -->
-    <property name="logback.path" value="/Users/william/logs"/>
+    <property name="logback.path" value="/tmp/logs"/>
     <property name="logback.level" value="INFO"/>
     <property name="logback.additivity" value="true"/>
     <!--格式化输出：%d表示日期，%t表示线程名，%-5p：级别从左显示5个字符宽度   %m：日志消息，%n是换行符-->

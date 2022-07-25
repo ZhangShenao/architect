@@ -49,26 +49,26 @@ public class SimpleProducer {
                 ProducerRecord<String, String> message = new ProducerRecord<>(TOPIC_NAME, key, value);
 
                 //Step4:发送消息(异步)
-                producer.send(message, (metadata, exception) -> {
-                    //消息发送成功
-                    if (exception == null && metadata != null) {
-                        System.err.println(String.format("Send Message Result——topic:%s,partition:%s,offset:%s", metadata.topic(), metadata.partition(), metadata.offset()));
-                        return;
-                    }
-
-                    //可重试异常
-                    if (exception instanceof RetriableException) {
-                        //TODO 处理可重试瞬时异常RetriableException
-                        return;
-                    }
-
-                    //TODO 不可重试异常
-                    System.err.println("Send Message Result——metadata: " + metadata + ",exception: " + exception);
-                });
+//                producer.send(message, (metadata, exception) -> {
+//                    //消息发送成功
+//                    if (exception == null && metadata != null) {
+//                        System.err.println(String.format("Send Message Result——topic:%s,partition:%s,offset:%s", metadata.topic(), metadata.partition(), metadata.offset()));
+//                        return;
+//                    }
+//
+//                    //可重试异常
+//                    if (exception instanceof RetriableException) {
+//                        //TODO 处理可重试瞬时异常RetriableException
+//                        return;
+//                    }
+//
+//                    //TODO 不可重试异常
+//                    System.err.println("Send Message Result——metadata: " + metadata + ",exception: " + exception);
+//                });
 
                 //Step4:发送消息(同步)
-//                RecordMetadata metadata = producer.send(message).get();
-//                System.err.println(String.format("Send Message Result——topic:%s,partition:%s,offset:%s", metadata.topic(), metadata.partition(), metadata.offset()));
+                RecordMetadata metadata = producer.send(message).get();
+                System.err.printf("Send Message Result——topic:%s,partition:%s,offset:%s\n", metadata.topic(), metadata.partition(), metadata.offset());
             }
         } catch (Exception e) {
             e.printStackTrace();
