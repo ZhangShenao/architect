@@ -1,0 +1,5 @@
+spring:
+  kafka:
+    bootstrapServers: localhost:9092
+    consumer:
+      auto-offset-reset: earliest
