@@ -1,5 +1,25 @@
 spring:
   kafka:
+    # Broker 配置
     bootstrapServers: localhost:9092
+
+    # Producer 配置
+    producer:
+      retries: 1
+      batch-size: 16384
+      buffer-memory: 33554432
+      acks: all
+      properties:
+        linger:
+          ms: 5
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
+    # Consumer 配置
     consumer:
       auto-offset-reset: earliest
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer

@@ -3,7 +3,6 @@ package william.springboot.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import william.springboot.dto.UserDto;
-import william.springboot.kafka.KafkaProducer;
 import william.springboot.service.UserService;
 
 import java.util.List;
@@ -19,9 +18,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private KafkaProducer kafkaProducer;
-
     @GetMapping("/{userId}")
     public UserDto findById(@PathVariable("userId") long userId) {
         return userService.getById(userId);
@@ -35,10 +31,5 @@ public class UserController {
     @PostMapping
     public void addUser(@RequestBody UserDto dto) {
         userService.addUser(dto);
-    }
-
-    @GetMapping("/send_msg")
-    public void send(@RequestParam("data") String data) {
-        kafkaProducer.send(data);
     }
 }
