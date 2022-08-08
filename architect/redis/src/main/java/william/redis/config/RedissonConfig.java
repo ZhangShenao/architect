@@ -1,6 +1,8 @@
 package william.redis.config;
 
 import org.redisson.Redisson;
+import org.redisson.client.codec.ScanCodec;
+import org.redisson.client.codec.StringCodec;
 import org.redisson.config.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,7 @@ public class RedissonConfig {
         config.useMasterSlaveServers()
                 .setMasterAddress("redis://127.0.0.1:6379");
 //                .addSlaveAddress("redis://127.0.0.1:6380", "redis://127.0.0.1:6381");
+        config.setCodec(new StringCodec());   //设置编解码方式——String
         return (Redisson) Redisson.create(config);
     }
 }
