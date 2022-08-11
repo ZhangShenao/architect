@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/stock")
 public class StockController {
     @Autowired
-    private Redisson redisson;  //Redisson客户端
+    private RedissonClient redissonClient;  //Redisson客户端
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -40,11 +41,10 @@ public class StockController {
     @GetMapping("/reduce_by_redisson/{skuId}")
     public String reduceStockByRedisson(@PathVariable("skuId") String skuId) {
         String lockKey = createLockKey(skuId);
-        RLock lock = redisson.getLock(lockKey);
+        RLock lock = redissonClient.getLock(lockKey);
         try {
             //加锁
             lock.lock();
-
             //扣减库存
             String key = String.format(STOCK_KEY_FORMAT, skuId);
             String stock = redisTemplate.opsForValue().get(key);

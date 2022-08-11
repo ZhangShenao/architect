@@ -1,10 +1,7 @@
 package william.redis.controller;
 
 import org.redisson.Redisson;
-import org.redisson.api.RDeque;
-import org.redisson.api.RMap;
-import org.redisson.api.RScoredSortedSet;
-import org.redisson.api.RSet;
+import org.redisson.api.*;
 import org.redisson.client.protocol.ScoredEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,12 +18,12 @@ import java.util.*;
 @RestController
 public class OpsController {
     @Autowired
-    private Redisson redisson;
+    private RedissonClient redissonClient;
 
     @GetMapping("/stats")
     public Map<String, String> stats() {
         //使用Redisson客户端操作map(hash)
-        RMap<String, String> stats = redisson.getMap("stats");
+        RMap<String, String> stats = redissonClient.getMap("stats");
 
         stats.put("pv", String.valueOf(100L));
         stats.put("uv", String.valueOf(50L));
@@ -40,7 +37,7 @@ public class OpsController {
     @GetMapping("wechat")
     public List<String> wechatMoments() {
         //使用Redisson Deque(list)实现FILO
-        RDeque<String> wechat = redisson.getDeque("wechat-moments");
+        RDeque<String> wechat = redissonClient.getDeque("wechat-moments");
         wechat.push("周一:难受,不想上班");
         wechat.push("周三:小周末,简单放松一下");
         wechat.push("周五:马上周末了,开心");
@@ -58,7 +55,7 @@ public class OpsController {
     //抽奖
     @GetMapping("/luck_draw")
     public String luckDraw(@RequestParam("level") int level) {
-        RSet<String> candidates = redisson.getSet("luck-draw");
+        RSet<String> candidates = redissonClient.getSet("luck-draw");
         candidates.add("周杰伦");
         candidates.add("陶喆");
         candidates.add("孙燕姿");
@@ -88,7 +85,7 @@ public class OpsController {
     //员工OKR评分
     @GetMapping("/okr")
     public String okr() {
-        RScoredSortedSet<String> okr = redisson.getScoredSortedSet("okr");
+        RScoredSortedSet<String> okr = redissonClient.getScoredSortedSet("okr");
         okr.add(100D, "周杰伦");
         okr.add(100D, "陶喆");
         okr.add(100D, "李荣浩");
