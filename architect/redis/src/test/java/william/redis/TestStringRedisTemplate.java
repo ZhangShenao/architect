@@ -4,16 +4,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisOperations;
-import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
-import william.redis.lua.LuaService;
 
-import java.util.List;
 
 /**
  * @Auther: ZhangShenao
@@ -25,9 +19,6 @@ import java.util.List;
 public class TestStringRedisTemplate {
     @Autowired
     private StringRedisTemplate redisTemplate;
-
-    @Autowired
-    private LuaService luaService;
 
     @Test
     public void testSetKey() {
@@ -55,12 +46,5 @@ public class TestStringRedisTemplate {
 
             return null;
         });
-    }
-
-    @Test
-    public void testLua() {
-        String key = "sku:stock:1001";
-        int count = 10;
-        luaService.reduceStock(key, count);
     }
 }
