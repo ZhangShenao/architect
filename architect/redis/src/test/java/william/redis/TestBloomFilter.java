@@ -17,7 +17,7 @@ import william.redis.bloomfilter.RedissonBloomFilter;
 public class TestBloomFilter {
     @Test
     public void testBloomFilter() {
-        RedissonBloomFilter<String> bloomFilter = new RedissonBloomFilter<>("simple_bloom_filter", 1000L, 0.05);
+        RedissonBloomFilter<String> bloomFilter = new RedissonBloomFilter<>("test:bf", 1000L, 0.05);
         bloomFilter.initKeys("key-01", "key-02");
         System.out.println("is key-01 exists: " + bloomFilter.exists("key-01"));
         System.out.println("is key-02 exists: " + bloomFilter.exists("key-02"));
